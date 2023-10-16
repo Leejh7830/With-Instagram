@@ -15,7 +15,7 @@ namespace With_Instagram
 {
     public partial class MainForm : Form
     {
-        private List<User> users;
+        //private List<User> users;
         private IWebDriver driver;
 
         public MainForm()
@@ -61,6 +61,7 @@ namespace With_Instagram
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            List<User> users = new List<User>();
             if (cboxID1.SelectedItem != null)
             {
                 User selectedUser = (User)cboxID1.SelectedItem;
