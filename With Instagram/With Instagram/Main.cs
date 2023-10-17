@@ -101,6 +101,7 @@ namespace With_Instagram
             string chromeDriverRelativePath = @"..\..\packages\Selenium.WebDriver.ChromeDriver.117.0.5938.14900\driver\win32\chromedriver";
             string chromeDriverPath = Path.GetFullPath(Path.Combine(executableLocation, chromeDriverRelativePath));
 
+
             // 크롬 드라이버 옵션 설정
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("start-maximized"); // 창을 최대화하여 열기
@@ -119,6 +120,48 @@ namespace With_Instagram
                 Console.WriteLine("An error occurred: " + ex.Message);
             }
         }
+
+        private void InitializeDriver()
+        {
+            string driverPath = DownloadLatestChromeDriver();
+
+            ChromeOptions options = new ChromeOptions();
+            options.AddArgument("start-maximized");
+
+            // WebDriver 초기화
+            IWebDriver driver = new ChromeDriver(driverPath, options);
+
+            // 나머지 코드에서 이 driver를 사용할 수 있음
+        }
+
+        private string DownloadLatestChromeDriver()
+        {
+            // 최신 버전의 ChromeDriver를 다운로드할 URL
+            string downloadUrl = "https://chromedriver.storage.googleapis.com/LATEST_RELEASE";
+
+            // 최신 버전 가져오기
+            WebClient client = new WebClient();
+            string latestVersion = client.DownloadString(downloadUrl).Trim();
+
+            // 최신 버전에 해당하는 ChromeDriver 다운로드 경로 생성
+            string downloadPath = $"https://chromedriver.storage.googleapis.com/{latestVersion}/chromedriver_win32.zip";
+
+            // WebDriver 다운로드
+            string driverDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "chromedriver");
+            string zipFilePath = Path.Combine(driverDirectory, "chromedriver.zip");
+
+            // TODO: 여기에 파일 다운로드 및 압축 해제 코드 추가
+
+            return driverDirectory;
+        }
+
+
+
+
+
+
+
+
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
