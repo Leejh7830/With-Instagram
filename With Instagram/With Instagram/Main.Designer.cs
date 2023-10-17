@@ -30,14 +30,14 @@ namespace With_Instagram
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnConnect = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.txtPW1 = new System.Windows.Forms.TextBox();
+            this.txtID1 = new System.Windows.Forms.TextBox();
             this.cboxID1 = new System.Windows.Forms.ComboBox();
             this.insPW = new System.Windows.Forms.Label();
             this.insID = new System.Windows.Forms.Label();
-            this.txtID1 = new System.Windows.Forms.TextBox();
-            this.txtPW1 = new System.Windows.Forms.TextBox();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.btnConnect = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,8 +58,52 @@ namespace With_Instagram
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
             // 
+            // btnConnect
+            // 
+            this.btnConnect.Location = new System.Drawing.Point(146, 233);
+            this.btnConnect.Name = "btnConnect";
+            this.btnConnect.Size = new System.Drawing.Size(200, 44);
+            this.btnConnect.TabIndex = 7;
+            this.btnConnect.Text = "Connect";
+            this.btnConnect.UseVisualStyleBackColor = true;
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(249, 183);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(97, 44);
+            this.btnDelete.TabIndex = 6;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(146, 183);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(97, 44);
+            this.btnSave.TabIndex = 5;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
+            // 
+            // txtPW1
+            // 
+            this.txtPW1.Location = new System.Drawing.Point(112, 130);
+            this.txtPW1.Name = "txtPW1";
+            this.txtPW1.Size = new System.Drawing.Size(131, 25);
+            this.txtPW1.TabIndex = 4;
+            // 
+            // txtID1
+            // 
+            this.txtID1.Location = new System.Drawing.Point(112, 92);
+            this.txtID1.Name = "txtID1";
+            this.txtID1.Size = new System.Drawing.Size(131, 25);
+            this.txtID1.TabIndex = 3;
+            // 
             // cboxID1
             // 
+            this.cboxID1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboxID1.FormattingEnabled = true;
             this.cboxID1.Location = new System.Drawing.Point(43, 57);
             this.cboxID1.Name = "cboxID1";
@@ -84,49 +128,6 @@ namespace With_Instagram
             this.insID.Size = new System.Drawing.Size(20, 15);
             this.insID.TabIndex = 0;
             this.insID.Text = "ID";
-            // 
-            // txtID1
-            // 
-            this.txtID1.Location = new System.Drawing.Point(112, 92);
-            this.txtID1.Name = "txtID1";
-            this.txtID1.Size = new System.Drawing.Size(131, 25);
-            this.txtID1.TabIndex = 3;
-            // 
-            // txtPW1
-            // 
-            this.txtPW1.Location = new System.Drawing.Point(112, 130);
-            this.txtPW1.Name = "txtPW1";
-            this.txtPW1.Size = new System.Drawing.Size(131, 25);
-            this.txtPW1.TabIndex = 4;
-            // 
-            // btnSave
-            // 
-            this.btnSave.Location = new System.Drawing.Point(146, 183);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(97, 44);
-            this.btnSave.TabIndex = 5;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Location = new System.Drawing.Point(249, 183);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(97, 44);
-            this.btnDelete.TabIndex = 6;
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
-            // btnConnect
-            // 
-            this.btnConnect.Location = new System.Drawing.Point(146, 233);
-            this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(200, 44);
-            this.btnConnect.TabIndex = 7;
-            this.btnConnect.Text = "Connect";
-            this.btnConnect.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
