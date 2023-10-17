@@ -15,18 +15,17 @@ namespace With_Instagram
 {
     public partial class MainForm : Form
     {
-        private readonly List<User> users;
+        private List<User> users;
         private IWebDriver driver;
 
         public MainForm()
         {
             InitializeComponent();
-            users = new List<User>();
         }
 
-        private void BtnSave_Click(object sender, EventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
         {
-            //List<User> users = new List<User>();
+            List<User> users = new List<User>();
             string newID = txtID1.Text;
             string newPassword = txtPW1.Text;
 
@@ -60,7 +59,7 @@ namespace With_Instagram
             }
         }
 
-        private void BtnDelete_Click(object sender, EventArgs e)
+        private void btnDelete_Click(object sender, EventArgs e)
         {
             if (cboxID1.SelectedItem != null)
             {
