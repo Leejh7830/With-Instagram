@@ -7,7 +7,10 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -22,6 +25,8 @@ namespace With_Instagram
         {
             InitializeComponent();
             users = new List<User>();
+
+
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
@@ -96,11 +101,16 @@ namespace With_Instagram
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
-            // 실행 파일이 위치한 디렉토리를 기준으로 chromedriver.exe 경로 설정
-            string executableLocation = AppDomain.CurrentDomain.BaseDirectory;
-            string chromeDriverRelativePath = @"..\..\packages\Selenium.WebDriver.ChromeDriver.117.0.5938.14900\driver\win32\chromedriver";
-            string chromeDriverPath = Path.GetFullPath(Path.Combine(executableLocation, chromeDriverRelativePath));
+            if (string.IsNullOrWhiteSpace(txtID1.Text))
+            {
+                MessageBox.Show("ID입력하세요");
+                return;
+            };
 
+            // 실행 파일이 위치한 디렉토리를 기준으로 chromedriver.exe 경로 설정
+            string executableLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string chromeDriverRelativePath = $"chromedriver.exe";
+            string chromeDriverPath = Path.GetFullPath(Path.Combine(executableLocation, chromeDriverRelativePath));
 
             // 크롬 드라이버 옵션 설정
             ChromeOptions options = new ChromeOptions();
@@ -113,6 +123,17 @@ namespace With_Instagram
             {
                 // 인스타그램 홈페이지로 이동
                 driver.Navigate().GoToUrl("https://www.instagram.com/");
+
+                Thread.Sleep(2000);
+
+                // ID 입력란의 XPath
+                string idInputXPath = "//*[@id='loginForm']/div/div[1]/div/label/input";
+
+                Thread.Sleep(2000);
+
+                // ID 입력란에 값을 입력
+                IWebElement idInput = driver.FindElement(By.XPath(idInputXPath));
+                idInput.SendKeys(txtID1.Text);
             }
             catch (Exception ex)
             {
@@ -121,6 +142,10 @@ namespace With_Instagram
             }
         }
 
+
+
+        /*
+        
         private void InitializeDriver()
         {
             string driverPath = DownloadLatestChromeDriver();
@@ -155,13 +180,7 @@ namespace With_Instagram
             return driverDirectory;
         }
 
-
-
-
-
-
-
-
+        */
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
