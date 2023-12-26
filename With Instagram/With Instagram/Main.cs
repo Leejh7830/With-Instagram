@@ -26,7 +26,58 @@ namespace With_Instagram
             InitializeComponent();
             users = new List<User>();
 
+            LoadUsers();
+        }
 
+        private void LoadUsers()
+        {
+            try
+            {
+                // 파일에서 사용자 정보 읽기
+                string filePath = "users.dat";
+                if (File.Exists(filePath))
+                {
+                    string[] lines = File.ReadAllLines(filePath);
+
+                    foreach (string line in lines)
+                    {
+                        string[] parts = line.Split(',');
+                        if (parts.Length == 2)
+                        {
+                            User user = new User
+                            {
+                                ID = parts[0],
+                                Password = parts[1]
+                            };
+                            users.Add(user);
+                            cboxID1.Items.Add(user);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"사용자 정보를 불러오는 도중 오류가 발생했습니다: {ex.Message}");
+            }
+        }
+
+        private void SaveUsers()
+        {
+            try
+            {
+                string filePath = "users.dat";
+                using (StreamWriter writer = new StreamWriter(filePath))
+                {
+                    foreach (User user in users)
+                    {
+                        writer.WriteLine($"{user.ID},{user.Password}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"사용자 정보를 저장하는 도중 오류가 발생했습니다: {ex.Message}");
+            }
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
@@ -61,6 +112,10 @@ namespace With_Instagram
                 };
                 users.Add(user);
                 cboxID1.Items.Add(user);
+
+                // 유저정보 저장 .dat
+                SaveUsers();
+
                 MessageBox.Show("새로운 사용자가 추가되었습니다.");
             }
         }
@@ -82,6 +137,8 @@ namespace With_Instagram
                 txtPW1.Clear();
 
                 MessageBox.Show("사용자가 삭제되었습니다.");
+
+                SaveUsers();
             }
             else
             {
@@ -124,16 +181,22 @@ namespace With_Instagram
                 // 인스타그램 홈페이지로 이동
                 driver.Navigate().GoToUrl("https://www.instagram.com/");
 
-                Thread.Sleep(2000);
+                Thread.Sleep(1000);
 
                 // ID 입력란의 XPath
                 string idInputXPath = "//*[@id='loginForm']/div/div[1]/div/label/input";
-
-                Thread.Sleep(2000);
+                string pwInputXPath = "//*[@id='loginForm']/div/div[2]/div/label/input";
+                string loginbtnXPath = "//*[@id='loginForm']/div/div[3]";
 
                 // ID 입력란에 값을 입력
                 IWebElement idInput = driver.FindElement(By.XPath(idInputXPath));
                 idInput.SendKeys(txtID1.Text);
+                Thread.Sleep(1000);
+                IWebElement pwInput = driver.FindElement(By.XPath(pwInputXPath));
+                pwInput.SendKeys(txtPW1.Text);
+                Thread.Sleep(1000);
+                IWebElement loginBtn = driver.FindElement(By.XPath(loginbtnXPath));
+                loginBtn.Click();
             }
             catch (Exception ex)
             {
