@@ -65,6 +65,7 @@ namespace With_Instagram
         {
             try
             {
+                // 사용자 정보를 파일에 저장
                 string filePath = "users.dat";
                 using (StreamWriter writer = new StreamWriter(filePath))
                 {
@@ -81,8 +82,7 @@ namespace With_Instagram
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
-         {
-            //List<User> users = new List<User>();
+        {
             string newID = txtID1.Text;
             string newPassword = txtPW1.Text;
 
@@ -113,7 +113,7 @@ namespace With_Instagram
                 users.Add(user);
                 cboxID1.Items.Add(user);
 
-                // 유저정보 저장 .dat
+                // 사용자 정보를 저장
                 SaveUsers();
 
                 MessageBox.Show("새로운 사용자가 추가되었습니다.");
@@ -136,8 +136,10 @@ namespace With_Instagram
                 txtID1.Clear();
                 txtPW1.Clear();
 
+                // 사용자가 삭제되었습니다. 메시지 표시
                 MessageBox.Show("사용자가 삭제되었습니다.");
 
+                // 사용자 정보를 파일에서 저장
                 SaveUsers();
             }
             else
@@ -181,22 +183,19 @@ namespace With_Instagram
                 // 인스타그램 홈페이지로 이동
                 driver.Navigate().GoToUrl("https://www.instagram.com/");
 
-                Thread.Sleep(1000);
+                Thread.Sleep(2000);
 
                 // ID 입력란의 XPath
                 string idInputXPath = "//*[@id='loginForm']/div/div[1]/div/label/input";
                 string pwInputXPath = "//*[@id='loginForm']/div/div[2]/div/label/input";
-                string loginbtnXPath = "//*[@id='loginForm']/div/div[3]";
+
+                Thread.Sleep(2000);
 
                 // ID 입력란에 값을 입력
                 IWebElement idInput = driver.FindElement(By.XPath(idInputXPath));
                 idInput.SendKeys(txtID1.Text);
-                Thread.Sleep(1000);
                 IWebElement pwInput = driver.FindElement(By.XPath(pwInputXPath));
                 pwInput.SendKeys(txtPW1.Text);
-                Thread.Sleep(1000);
-                IWebElement loginBtn = driver.FindElement(By.XPath(loginbtnXPath));
-                loginBtn.Click();
             }
             catch (Exception ex)
             {
