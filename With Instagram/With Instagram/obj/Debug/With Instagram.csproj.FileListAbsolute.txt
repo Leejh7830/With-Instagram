@@ -20,12 +20,6 @@ C:\Users\Lee\Desktop\GitHub\With-Instagram\With Instagram\With Instagram\bin\Deb
 C:\Users\Lee\Desktop\GitHub\With-Instagram\With Instagram\With Instagram\obj\Debug\With Instagram.csproj.CopyComplete
 C:\Users\Lee\Desktop\GitHub\With-Instagram\With Instagram\With Instagram\obj\Debug\With Instagram.exe
 C:\Users\Lee\Desktop\GitHub\With-Instagram\With Instagram\With Instagram\obj\Debug\With Instagram.pdb
-C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\obj\Debug\With_Instagram.MainForm.resources
-C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\obj\Debug\With_Instagram.Properties.Resources.resources
-C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\obj\Debug\With Instagram.csproj.GenerateResource.cache
-C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\obj\Debug\With Instagram.csproj.CoreCompileInputs.cache
-C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\obj\Debug\With Instagram.exe
-C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\obj\Debug\With Instagram.pdb
 C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug\selenium-manager\linux\selenium-manager
 C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug\selenium-manager\macos\selenium-manager
 C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug\selenium-manager\windows\selenium-manager.exe
@@ -37,9 +31,16 @@ C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug
 C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug\WebDriver.dll
 C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug\WebDriver.Support.dll
 C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug\System.Drawing.Common.pdb
 C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug\System.Drawing.Common.xml
 C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug\WebDriver.xml
 C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug\WebDriver.Support.xml
+C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\obj\Debug\With_Instagram.MainForm.resources
+C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\obj\Debug\With_Instagram.Properties.Resources.resources
+C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\obj\Debug\With Instagram.csproj.GenerateResource.cache
+C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\obj\Debug\With Instagram.csproj.CoreCompileInputs.cache
 C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\obj\Debug\With Instagram.csproj.CopyComplete
-C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug\System.Drawing.Common.pdb
+C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\obj\Debug\With Instagram.exe
+C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\obj\Debug\With Instagram.pdb
+C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug\SeleniumExtras.WaitHelpers.dll
 C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\obj\Debug\With Instagram.csproj.AssemblyReference.cache

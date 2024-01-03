@@ -1,5 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,7 +27,7 @@ namespace With_Instagram
         {
             InitializeComponent();
             users = new List<User>();
-
+            this.Size = new Size(600, 400);
             LoadUsers();
         }
 
@@ -100,6 +102,7 @@ namespace With_Instagram
             {
                 // 이미 있는 사용자의 비밀번호를 업데이트
                 existingUser.Password = newPassword;
+                SaveUsers();
                 MessageBox.Show("비밀번호가 업데이트되었습니다.");
             }
             else
@@ -183,26 +186,52 @@ namespace With_Instagram
                 // 인스타그램 홈페이지로 이동
                 driver.Navigate().GoToUrl("https://www.instagram.com/");
 
-                Thread.Sleep(2000);
-
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+                
                 // ID 입력란의 XPath
                 string idInputXPath = "//*[@id='loginForm']/div/div[1]/div/label/input";
                 string pwInputXPath = "//*[@id='loginForm']/div/div[2]/div/label/input";
+                string loginBtnXPath = "//*[@id='loginForm']/div/div[3]/button/div";
 
-                Thread.Sleep(2000);
+                wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(idInputXPath)));
+                // Thread.Sleep(1000);
 
                 // ID 입력란에 값을 입력
                 IWebElement idInput = driver.FindElement(By.XPath(idInputXPath));
                 idInput.SendKeys(txtID1.Text);
                 IWebElement pwInput = driver.FindElement(By.XPath(pwInputXPath));
                 pwInput.SendKeys(txtPW1.Text);
+                IWebElement loginBtn = driver.FindElement(By.XPath(loginBtnXPath));
+                loginBtn.Click();
+
+                Thread.Sleep(2000);
+
+                ExploreInstagram();
             }
             catch (Exception ex)
             {
-                // 에러 처리
-                Console.WriteLine("An error occurred: " + ex.Message);
+                // 더 자세한 에러 처리 및 로깅
+                Console.WriteLine($"에러 발생: {ex.Message}\n스택 트레이스: {ex.StackTrace}");
             }
+
         }
+
+        private void ExploreInstagram()
+        {
+            // Instagram 탐색에 대한 코드
+            ClickExp();
+        }
+
+
+        private void ClickExp()
+        {
+            IWebElement DivExp = driver.FindElement(By.XPath("//*[@id='mount_0_0_vi']/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[3]/span/div/a/div"));
+            DivExp.Click();
+        }
+
+
+
+
 
 
 
