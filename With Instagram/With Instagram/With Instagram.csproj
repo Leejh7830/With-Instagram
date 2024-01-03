@@ -63,6 +63,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Explore.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Explore.Designer.cs">
+      <DependentUpon>Explore.cs</DependentUpon>
+    </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>

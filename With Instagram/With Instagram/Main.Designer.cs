@@ -29,7 +29,7 @@ namespace With_Instagram
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.LoginView = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.btnConnect = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
@@ -39,30 +39,33 @@ namespace With_Instagram
             this.cboxID1 = new System.Windows.Forms.ComboBox();
             this.insPW = new System.Windows.Forms.Label();
             this.insID = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.splitter1 = new System.Windows.Forms.Splitter();
+            this.btnLike = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.groupBox1.SuspendLayout();
+            this.ExploreView = new System.Windows.Forms.GroupBox();
+            this.btnLogout = new System.Windows.Forms.Button();
+            this.btnExit = new System.Windows.Forms.Button();
+            this.LoginView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.ExploreView.SuspendLayout();
             this.SuspendLayout();
             // 
-            // groupBox1
+            // LoginView
             // 
-            this.groupBox1.Controls.Add(this.dataGridView1);
-            this.groupBox1.Controls.Add(this.btnConnect);
-            this.groupBox1.Controls.Add(this.btnDelete);
-            this.groupBox1.Controls.Add(this.btnSave);
-            this.groupBox1.Controls.Add(this.txtPW1);
-            this.groupBox1.Controls.Add(this.txtID1);
-            this.groupBox1.Controls.Add(this.cboxID1);
-            this.groupBox1.Controls.Add(this.insPW);
-            this.groupBox1.Controls.Add(this.insID);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(634, 426);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
+            this.LoginView.Controls.Add(this.dataGridView1);
+            this.LoginView.Controls.Add(this.btnConnect);
+            this.LoginView.Controls.Add(this.btnDelete);
+            this.LoginView.Controls.Add(this.btnSave);
+            this.LoginView.Controls.Add(this.txtPW1);
+            this.LoginView.Controls.Add(this.txtID1);
+            this.LoginView.Controls.Add(this.cboxID1);
+            this.LoginView.Controls.Add(this.insPW);
+            this.LoginView.Controls.Add(this.insID);
+            this.LoginView.Location = new System.Drawing.Point(12, 12);
+            this.LoginView.Name = "LoginView";
+            this.LoginView.Size = new System.Drawing.Size(634, 426);
+            this.LoginView.TabIndex = 0;
+            this.LoginView.TabStop = false;
+            this.LoginView.Text = "LoginView";
             // 
             // dataGridView1
             // 
@@ -122,7 +125,7 @@ namespace With_Instagram
             // 
             this.cboxID1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboxID1.FormattingEnabled = true;
-            this.cboxID1.Location = new System.Drawing.Point(43, 57);
+            this.cboxID1.Location = new System.Drawing.Point(43, 47);
             this.cboxID1.Name = "cboxID1";
             this.cboxID1.Size = new System.Drawing.Size(200, 23);
             this.cboxID1.TabIndex = 2;
@@ -146,22 +149,14 @@ namespace With_Instagram
             this.insID.TabIndex = 0;
             this.insID.Text = "ID";
             // 
-            // button1
+            // btnLike
             // 
-            this.button1.Location = new System.Drawing.Point(683, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(81, 45);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // splitter1
-            // 
-            this.splitter1.Location = new System.Drawing.Point(0, 0);
-            this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 486);
-            this.splitter1.TabIndex = 10;
-            this.splitter1.TabStop = false;
+            this.btnLike.Location = new System.Drawing.Point(29, 35);
+            this.btnLike.Name = "btnLike";
+            this.btnLike.Size = new System.Drawing.Size(81, 45);
+            this.btnLike.TabIndex = 9;
+            this.btnLike.Text = "Like";
+            this.btnLike.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
@@ -171,28 +166,58 @@ namespace With_Instagram
             this.panel1.Size = new System.Drawing.Size(10, 483);
             this.panel1.TabIndex = 11;
             // 
+            // ExploreView
+            // 
+            this.ExploreView.Controls.Add(this.btnExit);
+            this.ExploreView.Controls.Add(this.btnLogout);
+            this.ExploreView.Controls.Add(this.btnLike);
+            this.ExploreView.Location = new System.Drawing.Point(683, 12);
+            this.ExploreView.Name = "ExploreView";
+            this.ExploreView.Size = new System.Drawing.Size(634, 426);
+            this.ExploreView.TabIndex = 12;
+            this.ExploreView.TabStop = false;
+            this.ExploreView.Text = "ExploreView";
+            // 
+            // btnLogout
+            // 
+            this.btnLogout.Location = new System.Drawing.Point(29, 315);
+            this.btnLogout.Name = "btnLogout";
+            this.btnLogout.Size = new System.Drawing.Size(81, 45);
+            this.btnLogout.TabIndex = 10;
+            this.btnLogout.Text = "Logout";
+            this.btnLogout.UseVisualStyleBackColor = true;
+            // 
+            // btnExit
+            // 
+            this.btnExit.Location = new System.Drawing.Point(29, 366);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(81, 45);
+            this.btnExit.TabIndex = 11;
+            this.btnExit.Text = "Exit";
+            this.btnExit.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1339, 486);
+            this.Controls.Add(this.ExploreView);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.splitter1);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.LoginView);
             this.Name = "MainForm";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.LoginView.ResumeLayout(false);
+            this.LoginView.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.ExploreView.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox LoginView;
         private System.Windows.Forms.ComboBox cboxID1;
         private System.Windows.Forms.Label insPW;
         private System.Windows.Forms.Label insID;
@@ -202,9 +227,11 @@ namespace With_Instagram
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnConnect;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Splitter splitter1;
+        private System.Windows.Forms.Button btnLike;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.GroupBox ExploreView;
+        private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.Button btnLogout;
     }
 }
 

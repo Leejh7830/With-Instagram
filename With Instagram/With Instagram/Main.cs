@@ -218,18 +218,40 @@ namespace With_Instagram
 
         private void ExploreInstagram()
         {
-            // Instagram 탐색에 대한 코드
-            ClickExp();
+            try
+            {
+                // URL이 변경되면 다음 코드 실행
+                if (IsUrlChanged("https://www.instagram.com/accounts/onetap/?next=%2F"))
+                {
+                    ClickExp();
+                }
+            }
+            catch (NoSuchElementException ex)
+            {
+                MessageBox.Show($"Instagram 탐색에 실패했습니다. 원인: {ex.Message}");
+            }
         }
-
 
         private void ClickExp()
         {
-            IWebElement DivExp = driver.FindElement(By.XPath("//*[@id='mount_0_0_vi']/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[3]/span/div/a/div"));
-            DivExp.Click();
+            try
+            {
+                IWebElement DivExp = driver.FindElement(By.XPath("//*[@id='mount_0_0_G5']/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[3]/span/div/a/div"));
+                DivExp.Click();
+                MessageBox.Show("Test");
+            }
+            catch (NoSuchElementException)
+            {
+                // NoSuchElementException이 발생하면 그냥 다시 호출한 곳으로 예외를 전파할 수도 있고, 여기서 처리할 수도 있습니다.
+                throw new NoSuchElementException("탐색(Explore)을 찾을 수 없습니다.");
+            }
         }
 
-
+        private bool IsUrlChanged(string newUrl)
+        {
+            // 현재 URL과 비교하여 변경되었는지 확인
+            return !driver.Url.Equals(newUrl);
+        }
 
 
 
