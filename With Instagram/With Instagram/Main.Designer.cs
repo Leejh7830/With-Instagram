@@ -29,7 +29,7 @@ namespace With_Instagram
         /// </summary>
         private void InitializeComponent()
         {
-            this.LoginView = new System.Windows.Forms.GroupBox();
+            this.ViewLogin = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.btnConnect = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
@@ -41,31 +41,33 @@ namespace With_Instagram
             this.insID = new System.Windows.Forms.Label();
             this.btnLike = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.ExploreView = new System.Windows.Forms.GroupBox();
+            this.ViewExplore = new System.Windows.Forms.GroupBox();
             this.btnLogout = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
-            this.LoginView.SuspendLayout();
+            this.btnFollow = new System.Windows.Forms.Button();
+            this.btnUnfollow = new System.Windows.Forms.Button();
+            this.ViewLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.ExploreView.SuspendLayout();
+            this.ViewExplore.SuspendLayout();
             this.SuspendLayout();
             // 
-            // LoginView
+            // ViewLogin
             // 
-            this.LoginView.Controls.Add(this.dataGridView1);
-            this.LoginView.Controls.Add(this.btnConnect);
-            this.LoginView.Controls.Add(this.btnDelete);
-            this.LoginView.Controls.Add(this.btnSave);
-            this.LoginView.Controls.Add(this.txtPW1);
-            this.LoginView.Controls.Add(this.txtID1);
-            this.LoginView.Controls.Add(this.cboxID1);
-            this.LoginView.Controls.Add(this.insPW);
-            this.LoginView.Controls.Add(this.insID);
-            this.LoginView.Location = new System.Drawing.Point(12, 12);
-            this.LoginView.Name = "LoginView";
-            this.LoginView.Size = new System.Drawing.Size(634, 426);
-            this.LoginView.TabIndex = 0;
-            this.LoginView.TabStop = false;
-            this.LoginView.Text = "LoginView";
+            this.ViewLogin.Controls.Add(this.dataGridView1);
+            this.ViewLogin.Controls.Add(this.btnConnect);
+            this.ViewLogin.Controls.Add(this.btnDelete);
+            this.ViewLogin.Controls.Add(this.btnSave);
+            this.ViewLogin.Controls.Add(this.txtPW1);
+            this.ViewLogin.Controls.Add(this.txtID1);
+            this.ViewLogin.Controls.Add(this.cboxID1);
+            this.ViewLogin.Controls.Add(this.insPW);
+            this.ViewLogin.Controls.Add(this.insID);
+            this.ViewLogin.Location = new System.Drawing.Point(12, 12);
+            this.ViewLogin.Name = "ViewLogin";
+            this.ViewLogin.Size = new System.Drawing.Size(634, 426);
+            this.ViewLogin.TabIndex = 0;
+            this.ViewLogin.TabStop = false;
+            this.ViewLogin.Text = "LoginView";
             // 
             // dataGridView1
             // 
@@ -157,26 +159,32 @@ namespace With_Instagram
             this.btnLike.TabIndex = 9;
             this.btnLike.Text = "Like";
             this.btnLike.UseVisualStyleBackColor = true;
+            this.btnLike.Click += new System.EventHandler(this.btnLike_Click);
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.panel1.Location = new System.Drawing.Point(667, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(10, 483);
             this.panel1.TabIndex = 11;
             // 
-            // ExploreView
+            // ViewExplore
             // 
-            this.ExploreView.Controls.Add(this.btnExit);
-            this.ExploreView.Controls.Add(this.btnLogout);
-            this.ExploreView.Controls.Add(this.btnLike);
-            this.ExploreView.Location = new System.Drawing.Point(683, 12);
-            this.ExploreView.Name = "ExploreView";
-            this.ExploreView.Size = new System.Drawing.Size(634, 426);
-            this.ExploreView.TabIndex = 12;
-            this.ExploreView.TabStop = false;
-            this.ExploreView.Text = "ExploreView";
+            this.ViewExplore.Controls.Add(this.btnUnfollow);
+            this.ViewExplore.Controls.Add(this.btnFollow);
+            this.ViewExplore.Controls.Add(this.btnExit);
+            this.ViewExplore.Controls.Add(this.btnLogout);
+            this.ViewExplore.Controls.Add(this.btnLike);
+            this.ViewExplore.Location = new System.Drawing.Point(683, 12);
+            this.ViewExplore.Name = "ViewExplore";
+            this.ViewExplore.Size = new System.Drawing.Size(634, 426);
+            this.ViewExplore.TabIndex = 12;
+            this.ViewExplore.TabStop = false;
+            this.ViewExplore.Text = "ExploreView";
             // 
             // btnLogout
             // 
@@ -196,28 +204,46 @@ namespace With_Instagram
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
             // 
+            // btnFollow
+            // 
+            this.btnFollow.Location = new System.Drawing.Point(29, 86);
+            this.btnFollow.Name = "btnFollow";
+            this.btnFollow.Size = new System.Drawing.Size(81, 45);
+            this.btnFollow.TabIndex = 12;
+            this.btnFollow.Text = "Follow";
+            this.btnFollow.UseVisualStyleBackColor = true;
+            // 
+            // btnUnfollow
+            // 
+            this.btnUnfollow.Location = new System.Drawing.Point(116, 86);
+            this.btnUnfollow.Name = "btnUnfollow";
+            this.btnUnfollow.Size = new System.Drawing.Size(81, 45);
+            this.btnUnfollow.TabIndex = 13;
+            this.btnUnfollow.Text = "UnFollow";
+            this.btnUnfollow.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1339, 486);
-            this.Controls.Add(this.ExploreView);
+            this.Controls.Add(this.ViewExplore);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.LoginView);
+            this.Controls.Add(this.ViewLogin);
             this.Name = "MainForm";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
-            this.LoginView.ResumeLayout(false);
-            this.LoginView.PerformLayout();
+            this.ViewLogin.ResumeLayout(false);
+            this.ViewLogin.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.ExploreView.ResumeLayout(false);
+            this.ViewExplore.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox LoginView;
+        private System.Windows.Forms.GroupBox ViewLogin;
         private System.Windows.Forms.ComboBox cboxID1;
         private System.Windows.Forms.Label insPW;
         private System.Windows.Forms.Label insID;
@@ -229,9 +255,11 @@ namespace With_Instagram
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button btnLike;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.GroupBox ExploreView;
+        private System.Windows.Forms.GroupBox ViewExplore;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnLogout;
+        private System.Windows.Forms.Button btnUnfollow;
+        private System.Windows.Forms.Button btnFollow;
     }
 }
 

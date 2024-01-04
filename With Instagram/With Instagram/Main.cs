@@ -183,18 +183,17 @@ namespace With_Instagram
 
             try
             {
-                // 인스타그램 홈페이지로 이동
+                // 페이지 이동
                 driver.Navigate().GoToUrl("https://www.instagram.com/");
 
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
                 
-                // ID 입력란의 XPath
+                // XPath
                 string idInputXPath = "//*[@id='loginForm']/div/div[1]/div/label/input";
                 string pwInputXPath = "//*[@id='loginForm']/div/div[2]/div/label/input";
                 string loginBtnXPath = "//*[@id='loginForm']/div/div[3]/button/div";
 
                 wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(idInputXPath)));
-                // Thread.Sleep(1000);
 
                 // ID 입력란에 값을 입력
                 IWebElement idInput = driver.FindElement(By.XPath(idInputXPath));
@@ -206,25 +205,37 @@ namespace With_Instagram
 
                 Thread.Sleep(2000);
 
-                ExploreInstagram();
+                if (IsUrlChanged("https://www.instagram.com/accounts/onetap/?next=%2F"))
+                {
+                    this.TopMost = true;
+                    SwapControlLocations(ViewExplore, ViewLogin); // 로그인성공 시 화면 전환
+                }
             }
             catch (Exception ex)
             {
                 // 더 자세한 에러 처리 및 로깅
                 Console.WriteLine($"에러 발생: {ex.Message}\n스택 트레이스: {ex.StackTrace}");
             }
+        }
 
+        // 두 컨트롤의 위치를 교환하는 함수
+        private void SwapControlLocations(Control control1, Control control2)
+        {
+            Point tempLocation = control1.Location;
+            control1.Location = control2.Location;
+            control2.Location = tempLocation;
+        }
+
+        private void btnLike_Click(object sender, EventArgs e)
+        {
+            ExploreInstagram();
         }
 
         private void ExploreInstagram()
         {
             try
             {
-                // URL이 변경되면 다음 코드 실행
-                if (IsUrlChanged("https://www.instagram.com/accounts/onetap/?next=%2F"))
-                {
-                    ClickExp();
-                }
+                ClickExp();
             }
             catch (NoSuchElementException ex)
             {
@@ -236,16 +247,24 @@ namespace With_Instagram
         {
             try
             {
-                IWebElement DivExp = driver.FindElement(By.XPath("//*[@id='mount_0_0_G5']/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[3]/span/div/a/div"));
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+
+                // 좀 더 간결하고 의미 있는 XPath 사용
+                string ExpXPath = "//*[@id='mount_0_0_be']//div[contains(@class, 'your-class')]/div[3]/span/div/a/div/div[1]/div";
+
+                // ElementIsVisible 대신 ElementToBeClickable을 사용
+                IWebElement DivExp = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(ExpXPath)));
+
                 DivExp.Click();
-                MessageBox.Show("Test");
+                Console.WriteLine("EXP 클릭 성공");
             }
             catch (NoSuchElementException)
             {
-                // NoSuchElementException이 발생하면 그냥 다시 호출한 곳으로 예외를 전파할 수도 있고, 여기서 처리할 수도 있습니다.
-                throw new NoSuchElementException("탐색(Explore)을 찾을 수 없습니다.");
+                // 예외를 던지지 않고 콘솔에 출력
+                Console.WriteLine("탐색(Explore)을 찾을 수 없습니다.");
             }
         }
+
 
         private bool IsUrlChanged(string newUrl)
         {
@@ -304,6 +323,7 @@ namespace With_Instagram
                 driver = null;
             }
         }
+
 
     }
 }
