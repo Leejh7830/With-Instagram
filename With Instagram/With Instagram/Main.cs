@@ -247,7 +247,7 @@ namespace With_Instagram
         {
             try
             {
-                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(3));
 
                 // 좀 더 간결하고 의미 있는 XPath 사용
                 string ExpXPath = "//*[@id='mount_0_0_be']//div[contains(@class, 'your-class')]/div[3]/span/div/a/div/div[1]/div";
