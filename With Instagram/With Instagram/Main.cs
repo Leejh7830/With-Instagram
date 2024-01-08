@@ -252,7 +252,7 @@ namespace With_Instagram
                 // 좀 더 간결하고 의미 있는 XPath 사용
                 string ExpXPath = "//*[@id='mount_0_0_be']//div[contains(@class, 'your-class')]/div[3]/span/div/a/div/div[1]/div";
 
-                // ElementIsVisible 대신 ElementToBeClickable을 사용
+                // ElementIsVisible 대신 ElementToBeClickable을 사용 -> 예외처리해야함
                 IWebElement DivExp = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(ExpXPath)));
 
                 DivExp.Click();
