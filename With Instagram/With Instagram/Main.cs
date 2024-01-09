@@ -254,7 +254,7 @@ namespace With_Instagram
 
                 // ElementIsVisible 대신 ElementToBeClickable을 사용 -> 예외처리해야함
                 IWebElement DivExp = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(ExpXPath)));
-
+                
                 DivExp.Click();
                 Console.WriteLine("EXP 클릭 성공");
             }
