@@ -22,6 +22,7 @@ namespace With_Instagram
     {
         private readonly List<User> users;
         private IWebDriver driver;
+        private string apiKey = "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";
 
         public MainForm()
         {
