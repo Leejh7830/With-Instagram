@@ -4,6 +4,7 @@ using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -229,8 +230,72 @@ namespace With_Instagram
 
         private void btnLike_Click(object sender, EventArgs e)
         {
-            ExploreInstagram();
+            // ExploreInstagram();
+            FindXpath();
         }
+
+        string[] xpaths = {
+            "//*[@id=\'mount_0_0_i9\']/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[2]/span/div/a/div",
+            "//*[@id=\'mount_0_0_i9\']/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[2]/span/div/a/div/div[1]/div/div/svg",
+            "//*[@id=\'mount_0_0_i9\']/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[2]/span/div/a/div/div[1]/div/div/svg/path",
+            "//*[@id=\'mount_0_0_i9\']/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div"
+        };
+
+        private void FindXpath()
+        {
+            // 현재 페이지의 모든 iframe 요소를 찾음
+            ReadOnlyCollection<IWebElement> iframes = driver.FindElements(By.TagName("iframe"));
+
+            // 각 iframe에 대해 처리
+            foreach (IWebElement iframe in iframes)
+            {
+                try
+                {
+                    // iframe으로 전환
+                    driver.SwitchTo().Frame(iframe);
+
+                    // 각 xpath에 대해 처리
+                    foreach (string xpath in xpaths)
+                    {
+                        try
+                        {
+                            // 현재 iframe 내에서 엘리먼트를 찾음
+                            IWebElement element = driver.FindElement(By.XPath(xpath));
+
+                            // 요소가 존재하는지 확인
+                            if (element != null)
+                            {
+                                // 클릭 가능 여부 확인
+                                try
+                                {
+                                    element.Click();
+                                    MessageBox.Show($"Iframe: {iframe.GetAttribute("id")} | {xpath} : Clickable");
+                                }
+                                catch (Exception)
+                                {
+                                    MessageBox.Show($"Iframe: {iframe.GetAttribute("id")} | {xpath} : Not Clickable");
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Iframe: {iframe.GetAttribute("id")} | {xpath} : Element not found");
+                            }
+                        }
+                        catch (StaleElementReferenceException)
+                        {
+                            MessageBox.Show($"Iframe: {iframe.GetAttribute("id")} | {xpath} : Stale element reference");
+                        }
+                    }
+                }
+                finally
+                {
+                    // 다시 기본 컨텍스트로 전환
+                    driver.SwitchTo().DefaultContent();
+                }
+            }
+        }
+
+
 
         private void ExploreInstagram()
         {

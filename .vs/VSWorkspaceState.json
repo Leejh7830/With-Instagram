@@ -2,7 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\With Instagram",
-    "\\With Instagram\\With Instagram"
+    "\\With Instagram\\With Instagram",
+    "\\With Instagram\\With Instagram\\bin\\Debug"
   ],
+  "SelectedNode": "\\With Instagram\\With Instagram\\App.config",
   "PreviewInSolutionExplorer": false
 }
