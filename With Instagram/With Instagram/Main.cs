@@ -295,8 +295,6 @@ namespace With_Instagram
             }
         }
 
-
-
         private void ExploreInstagram()
         {
             try
