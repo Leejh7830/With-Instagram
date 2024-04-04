@@ -230,8 +230,8 @@ namespace With_Instagram
 
         private void btnLike_Click(object sender, EventArgs e)
         {
-            // ExploreInstagram();
-            FindXpath();
+            // 탐색버튼의 XPath를 먼저 찾고 탐색해야함
+            ExploreInstagram();
         }
 
         string[] xpaths = {
@@ -243,6 +243,7 @@ namespace With_Instagram
 
         private void FindXpath()
         {
+
             // 현재 페이지의 모든 iframe 요소를 찾음
             ReadOnlyCollection<IWebElement> iframes = driver.FindElements(By.TagName("iframe"));
 
@@ -314,7 +315,7 @@ namespace With_Instagram
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(3));
 
                 // 좀 더 간결하고 의미 있는 XPath 사용
-                string ExpXPath = "//*[@id='mount_0_0_be']//div[contains(@class, 'your-class')]/div[3]/span/div/a/div/div[1]/div";
+                string ExpXPath = "//*[@id='mount_0_0_qL']/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[3]/span/div/a";
 
                 // ElementIsVisible 대신 ElementToBeClickable을 사용 -> 예외처리해야함
                 IWebElement DivExp = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(ExpXPath)));
@@ -328,7 +329,6 @@ namespace With_Instagram
                 Console.WriteLine("탐색(Explore)을 찾을 수 없습니다.");
             }
         }
-
 
         private bool IsUrlChanged(string newUrl)
         {

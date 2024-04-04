@@ -43,7 +43,6 @@ C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\obj\Debug
 C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\obj\Debug\With Instagram.exe
 C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\obj\Debug\With Instagram.pdb
 C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug\SeleniumExtras.WaitHelpers.dll
-C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\obj\Debug\With Instagram.csproj.AssemblyReference.cache
 C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug\ICSharpCode.SharpZipLib.dll
 C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug\Microsoft.Win32.Registry.dll
@@ -83,7 +82,6 @@ C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug
 C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug\Microsoft.Extensions.Options.ConfigurationExtensions.dll
 C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug\Microsoft.Extensions.Options.dll
 C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug\Microsoft.Extensions.Primitives.dll
-C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug\OpenAI.dll
 C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug\System.Diagnostics.DiagnosticSource.dll
 C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug\System.Net.Http.Json.dll
 C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.xml
@@ -96,6 +94,6 @@ C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug
 C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug\Microsoft.Extensions.Options.xml
 C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug\Microsoft.Extensions.Options.ConfigurationExtensions.xml
 C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug\Microsoft.Extensions.Primitives.xml
-C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug\OpenAI.xml
 C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug\System.Diagnostics.DiagnosticSource.xml
 C:\Users\Lee\Source\Repos\With-Instagram\With Instagram\With Instagram\bin\Debug\System.Net.Http.Json.xml
+C:\Users\Lee\source\repos\With-Instagram\With Instagram\With Instagram\obj\Debug\With Instagram.csproj.AssemblyReference.cache
