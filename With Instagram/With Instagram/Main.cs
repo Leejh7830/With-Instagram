@@ -71,6 +71,14 @@ namespace With_Instagram
             {
                 // 사용자 정보를 파일에 저장
                 string filePath = "users.dat";
+
+                // 파일이 존재하지 않으면 새로 생성
+                if (!File.Exists(filePath))
+                {
+                    File.Create(filePath).Close();
+                }
+
+                // 파일에 사용자 정보 작성
                 using (StreamWriter writer = new StreamWriter(filePath))
                 {
                     foreach (User user in users)
@@ -84,6 +92,7 @@ namespace With_Instagram
                 MessageBox.Show($"사용자 정보를 저장하는 도중 오류가 발생했습니다: {ex.Message}");
             }
         }
+
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
@@ -316,19 +325,26 @@ namespace With_Instagram
 
                 // 좀 더 간결하고 의미 있는 XPath 사용
                 string ExpXPath = "//*[@id='mount_0_0_qL']/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[3]/span/div/a";
+                string ExpXPath2 = "//*[@id='mount_0_0_lT']/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[3]/span/div/a";
 
-                // ElementIsVisible 대신 ElementToBeClickable을 사용 -> 예외처리해야함
-                IWebElement DivExp = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(ExpXPath)));
-                
+                // ElementToBeClickable을 사용하여 요소가 클릭 가능할 때까지 대기
+                IWebElement DivExp = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(ExpXPath2)));
+
                 DivExp.Click();
                 Console.WriteLine("EXP 클릭 성공");
             }
-            catch (NoSuchElementException)
+            catch (WebDriverTimeoutException ex)
             {
-                // 예외를 던지지 않고 콘솔에 출력
-                Console.WriteLine("탐색(Explore)을 찾을 수 없습니다.");
+                // 대기 시간이 초과되면 발생하는 예외 처리
+                MessageBox.Show($"요소가 클릭 가능 상태가 되지 않았습니다. 원인: {ex.Message}");
+            }
+            catch (NoSuchElementException ex)
+            {
+                // 요소를 찾지 못한 경우 발생하는 예외 처리
+                MessageBox.Show($"탐색(Explore)을 찾을 수 없습니다. 원인: {ex.Message}");
             }
         }
+
 
         private bool IsUrlChanged(string newUrl)
         {
