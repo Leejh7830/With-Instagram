@@ -218,7 +218,7 @@ namespace With_Instagram
 
                 if (IsUrlChanged("https://www.instagram.com/accounts/onetap/?next=%2F"))
                 {
-                    this.TopMost = true;
+                    this.Activate();
                     SwapControlLocations(ViewExplore, ViewLogin); // 로그인성공 시 화면 전환
                 }
             }
@@ -309,28 +309,16 @@ namespace With_Instagram
         {
             try
             {
-                ClickExp();
-            }
-            catch (NoSuchElementException ex)
-            {
-                MessageBox.Show($"Instagram 탐색에 실패했습니다. 원인: {ex.Message}");
-            }
-        }
-
-        private void ClickExp()
-        {
-            try
-            {
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(3));
 
-                // 좀 더 간결하고 의미 있는 XPath 사용
+                // mount_0_0_XX 부분이 변경되는 경우에도 동작하는 XPath 작성
+                string dynamicXPath = "//*[starts-with(@id, 'mount_0_0_')]/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[3]/span/div/a";
                 string ExpXPath = "//*[@id='mount_0_0_qL']/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[3]/span/div/a";
-                string ExpXPath2 = "//*[@id='mount_0_0_lT']/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[3]/span/div/a";
 
                 // ElementToBeClickable을 사용하여 요소가 클릭 가능할 때까지 대기
-                IWebElement DivExp = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(ExpXPath2)));
+                IWebElement divExp = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(dynamicXPath)));
 
-                DivExp.Click();
+                divExp.Click();
                 Console.WriteLine("EXP 클릭 성공");
             }
             catch (WebDriverTimeoutException ex)
@@ -343,6 +331,12 @@ namespace With_Instagram
                 // 요소를 찾지 못한 경우 발생하는 예외 처리
                 MessageBox.Show($"탐색(Explore)을 찾을 수 없습니다. 원인: {ex.Message}");
             }
+        }
+
+
+        private void ClickExp()
+        {
+            
         }
 
 
@@ -393,6 +387,11 @@ namespace With_Instagram
         }
 
         */
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close(); // 폼 닫기
+        }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {

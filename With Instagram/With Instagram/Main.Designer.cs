@@ -42,10 +42,10 @@ namespace With_Instagram
             this.btnLike = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ViewExplore = new System.Windows.Forms.GroupBox();
-            this.btnLogout = new System.Windows.Forms.Button();
-            this.btnExit = new System.Windows.Forms.Button();
-            this.btnFollow = new System.Windows.Forms.Button();
             this.btnUnfollow = new System.Windows.Forms.Button();
+            this.btnFollow = new System.Windows.Forms.Button();
+            this.btnExit = new System.Windows.Forms.Button();
+            this.btnLogout = new System.Windows.Forms.Button();
             this.ViewLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.ViewExplore.SuspendLayout();
@@ -186,23 +186,14 @@ namespace With_Instagram
             this.ViewExplore.TabStop = false;
             this.ViewExplore.Text = "ExploreView";
             // 
-            // btnLogout
+            // btnUnfollow
             // 
-            this.btnLogout.Location = new System.Drawing.Point(29, 315);
-            this.btnLogout.Name = "btnLogout";
-            this.btnLogout.Size = new System.Drawing.Size(81, 45);
-            this.btnLogout.TabIndex = 10;
-            this.btnLogout.Text = "Logout";
-            this.btnLogout.UseVisualStyleBackColor = true;
-            // 
-            // btnExit
-            // 
-            this.btnExit.Location = new System.Drawing.Point(29, 366);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(81, 45);
-            this.btnExit.TabIndex = 11;
-            this.btnExit.Text = "Exit";
-            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnUnfollow.Location = new System.Drawing.Point(116, 86);
+            this.btnUnfollow.Name = "btnUnfollow";
+            this.btnUnfollow.Size = new System.Drawing.Size(81, 45);
+            this.btnUnfollow.TabIndex = 13;
+            this.btnUnfollow.Text = "UnFollow";
+            this.btnUnfollow.UseVisualStyleBackColor = true;
             // 
             // btnFollow
             // 
@@ -213,14 +204,24 @@ namespace With_Instagram
             this.btnFollow.Text = "Follow";
             this.btnFollow.UseVisualStyleBackColor = true;
             // 
-            // btnUnfollow
+            // btnExit
             // 
-            this.btnUnfollow.Location = new System.Drawing.Point(116, 86);
-            this.btnUnfollow.Name = "btnUnfollow";
-            this.btnUnfollow.Size = new System.Drawing.Size(81, 45);
-            this.btnUnfollow.TabIndex = 13;
-            this.btnUnfollow.Text = "UnFollow";
-            this.btnUnfollow.UseVisualStyleBackColor = true;
+            this.btnExit.Location = new System.Drawing.Point(29, 366);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(81, 45);
+            this.btnExit.TabIndex = 11;
+            this.btnExit.Text = "Exit";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
+            // btnLogout
+            // 
+            this.btnLogout.Location = new System.Drawing.Point(29, 315);
+            this.btnLogout.Name = "btnLogout";
+            this.btnLogout.Size = new System.Drawing.Size(81, 45);
+            this.btnLogout.TabIndex = 10;
+            this.btnLogout.Text = "Logout";
+            this.btnLogout.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
