@@ -21,147 +21,47 @@ namespace With_Instagram
 {
     public partial class MainForm : Form
     {
-        private readonly List<User> users;
+        // private string apiKey = "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";
         private IWebDriver driver;
-        private string apiKey = "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";
+        private readonly UIManager uiManager;
+        // private readonly List<User> users;
 
         public MainForm()
         {
             InitializeComponent();
-            users = new List<User>();
+            uiManager = new UIManager();
+            // users = new List<User>();
             this.Size = new Size(600, 400);
-            LoadUsers();
+            uiManager.LoadUsers(cboxID1);
         }
 
-        private void LoadUsers()
-        {
-            try
-            {
-                // 파일에서 사용자 정보 읽기
-                string filePath = "users.dat";
-                if (File.Exists(filePath))
-                {
-                    string[] lines = File.ReadAllLines(filePath);
-
-                    foreach (string line in lines)
-                    {
-                        string[] parts = line.Split(',');
-                        if (parts.Length == 2)
-                        {
-                            User user = new User
-                            {
-                                ID = parts[0],
-                                Password = parts[1]
-                            };
-                            users.Add(user);
-                            cboxID1.Items.Add(user);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"사용자 정보를 불러오는 도중 오류가 발생했습니다: {ex.Message}");
-            }
-        }
-
-        private void SaveUsers()
-        {
-            try
-            {
-                // 사용자 정보를 파일에 저장
-                string filePath = "users.dat";
-
-                // 파일이 존재하지 않으면 새로 생성
-                if (!File.Exists(filePath))
-                {
-                    File.Create(filePath).Close();
-                }
-
-                // 파일에 사용자 정보 작성
-                using (StreamWriter writer = new StreamWriter(filePath))
-                {
-                    foreach (User user in users)
-                    {
-                        writer.WriteLine($"{user.ID},{user.Password}");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"사용자 정보를 저장하는 도중 오류가 발생했습니다: {ex.Message}");
-            }
-        }
-
-
-        private void BtnSave_Click(object sender, EventArgs e)
+        public void BtnSave_Click(object sender, EventArgs e)
         {
             string newID = txtID1.Text;
-            string newPassword = txtPW1.Text;
+            string newPW = txtPW1.Text;
 
-            // 사용자가 ID와 PW를 입력했는지 확인
-            if (string.IsNullOrWhiteSpace(newID) || string.IsNullOrWhiteSpace(newPassword))
+            // UI 매니저 클래스의 새로운 메서드 호출하여 사용자 정보 처리
+            if (uiManager.IsInputValid(newID, newPW))
             {
-                MessageBox.Show("ID와 비밀번호를 모두 입력하세요.");
-                return;
-            }
-
-            // 이미 동일한 ID가 있는지 확인
-            User existingUser = users.FirstOrDefault(user => user.ID == newID);
-
-            if (existingUser != null)
-            {
-                // 이미 있는 사용자의 비밀번호를 업데이트
-                existingUser.Password = newPassword;
-                SaveUsers();
-                MessageBox.Show("비밀번호가 업데이트되었습니다.");
-            }
-            else
-            {
-                // 새로운 사용자를 추가
-                User user = new User
-                {
-                    ID = newID,
-                    Password = newPassword
-                };
-                users.Add(user);
-                cboxID1.Items.Add(user);
-
-                // 사용자 정보를 저장
-                SaveUsers();
-
-                MessageBox.Show("새로운 사용자가 추가되었습니다.");
+                uiManager.AddOrUpdateUser(newID, newPW, cboxID1);
             }
         }
-
+        
         private void BtnDelete_Click(object sender, EventArgs e)
         {
             if (cboxID1.SelectedItem != null)
             {
                 User selectedUser = (User)cboxID1.SelectedItem;
+                // string ID = (string)cboxID1.SelectedItem;
 
-                // 해당 사용자를 리스트에서 삭제
-                users.Remove(selectedUser);
-
-                // 콤보박스에서도 해당 사용자를 삭제
-                cboxID1.Items.Remove(selectedUser);
-
-                // 텍스트 상자 초기화
-                txtID1.Clear();
-                txtPW1.Clear();
-
-                // 사용자가 삭제되었습니다. 메시지 표시
-                MessageBox.Show("사용자가 삭제되었습니다.");
-
-                // 사용자 정보를 파일에서 저장
-                SaveUsers();
+                uiManager.DeleteUser(selectedUser, cboxID1, txtID1, txtPW1);
             }
             else
             {
                 MessageBox.Show("삭제할 사용자를 선택하세요.");
             }
         }
-
+        
         private void cboxID1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cboxID1.SelectedItem != null)
@@ -240,105 +140,13 @@ namespace With_Instagram
         private void btnLike_Click(object sender, EventArgs e)
         {
             // 탐색버튼의 XPath를 먼저 찾고 탐색해야함
-            ExploreInstagram();
+            uiManager.ExploreInstagram(driver);
         }
 
-        string[] xpaths = {
-            "//*[@id=\'mount_0_0_i9\']/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[2]/span/div/a/div",
-            "//*[@id=\'mount_0_0_i9\']/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[2]/span/div/a/div/div[1]/div/div/svg",
-            "//*[@id=\'mount_0_0_i9\']/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[2]/span/div/a/div/div[1]/div/div/svg/path",
-            "//*[@id=\'mount_0_0_i9\']/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div"
-        };
-
-        private void FindXpath()
+        private void btnLogout_Click(object sender, EventArgs e)
         {
 
-            // 현재 페이지의 모든 iframe 요소를 찾음
-            ReadOnlyCollection<IWebElement> iframes = driver.FindElements(By.TagName("iframe"));
-
-            // 각 iframe에 대해 처리
-            foreach (IWebElement iframe in iframes)
-            {
-                try
-                {
-                    // iframe으로 전환
-                    driver.SwitchTo().Frame(iframe);
-
-                    // 각 xpath에 대해 처리
-                    foreach (string xpath in xpaths)
-                    {
-                        try
-                        {
-                            // 현재 iframe 내에서 엘리먼트를 찾음
-                            IWebElement element = driver.FindElement(By.XPath(xpath));
-
-                            // 요소가 존재하는지 확인
-                            if (element != null)
-                            {
-                                // 클릭 가능 여부 확인
-                                try
-                                {
-                                    element.Click();
-                                    MessageBox.Show($"Iframe: {iframe.GetAttribute("id")} | {xpath} : Clickable");
-                                }
-                                catch (Exception)
-                                {
-                                    MessageBox.Show($"Iframe: {iframe.GetAttribute("id")} | {xpath} : Not Clickable");
-                                }
-                            }
-                            else
-                            {
-                                MessageBox.Show($"Iframe: {iframe.GetAttribute("id")} | {xpath} : Element not found");
-                            }
-                        }
-                        catch (StaleElementReferenceException)
-                        {
-                            MessageBox.Show($"Iframe: {iframe.GetAttribute("id")} | {xpath} : Stale element reference");
-                        }
-                    }
-                }
-                finally
-                {
-                    // 다시 기본 컨텍스트로 전환
-                    driver.SwitchTo().DefaultContent();
-                }
-            }
         }
-
-        private void ExploreInstagram()
-        {
-            try
-            {
-                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(3));
-
-                // mount_0_0_XX 부분이 변경되는 경우에도 동작하는 XPath 작성
-                string dynamicXPath = "//*[starts-with(@id, 'mount_0_0_')]/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[3]/span/div/a";
-                string ExpXPath = "//*[@id='mount_0_0_qL']/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[3]/span/div/a";
-
-                // ElementToBeClickable을 사용하여 요소가 클릭 가능할 때까지 대기
-                IWebElement divExp = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(dynamicXPath)));
-
-                divExp.Click();
-                Console.WriteLine("EXP 클릭 성공");
-            }
-            catch (WebDriverTimeoutException ex)
-            {
-                // 대기 시간이 초과되면 발생하는 예외 처리
-                MessageBox.Show($"요소가 클릭 가능 상태가 되지 않았습니다. 원인: {ex.Message}");
-            }
-            catch (NoSuchElementException ex)
-            {
-                // 요소를 찾지 못한 경우 발생하는 예외 처리
-                MessageBox.Show($"탐색(Explore)을 찾을 수 없습니다. 원인: {ex.Message}");
-            }
-        }
-
-
-        private void ClickExp()
-        {
-            
-        }
-
 
         private bool IsUrlChanged(string newUrl)
         {
@@ -350,8 +158,28 @@ namespace With_Instagram
 
 
 
-        /*
         
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close(); // 폼 닫기
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // 폼이 닫힐 때 WebDriver 종료
+            if (driver != null)
+            {
+                driver.Quit();
+                driver = null;
+            }
+        }
+    }
+}
+
+
+
+/*   
         private void InitializeDriver()
         {
             string driverPath = DownloadLatestChromeDriver();
@@ -387,22 +215,3 @@ namespace With_Instagram
         }
 
         */
-
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            this.Close(); // 폼 닫기
-        }
-
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            // 폼이 닫힐 때 WebDriver 종료
-            if (driver != null)
-            {
-                driver.Quit();
-                driver = null;
-            }
-        }
-
-
-    }
-}
