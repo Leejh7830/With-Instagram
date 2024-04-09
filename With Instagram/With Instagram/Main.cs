@@ -24,13 +24,11 @@ namespace With_Instagram
         // private string apiKey = "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";
         private IWebDriver driver;
         private readonly UIManager uiManager;
-        // private readonly List<User> users;
 
         public MainForm()
         {
             InitializeComponent();
             uiManager = new UIManager();
-            // users = new List<User>();
             this.Size = new Size(600, 400);
             uiManager.LoadUsers(cboxID1);
         }
@@ -43,7 +41,7 @@ namespace With_Instagram
             // UI 매니저 클래스의 새로운 메서드 호출하여 사용자 정보 처리
             if (uiManager.IsInputValid(newID, newPW))
             {
-                uiManager.AddOrUpdateUser(newID, newPW, cboxID1);
+                uiManager.SaveUser(newID, newPW, cboxID1);
             }
         }
         
@@ -52,8 +50,6 @@ namespace With_Instagram
             if (cboxID1.SelectedItem != null)
             {
                 User selectedUser = (User)cboxID1.SelectedItem;
-                // string ID = (string)cboxID1.SelectedItem;
-
                 uiManager.DeleteUser(selectedUser, cboxID1, txtID1, txtPW1);
             }
             else
@@ -116,10 +112,10 @@ namespace With_Instagram
 
                 Thread.Sleep(2000);
 
-                if (IsUrlChanged("https://www.instagram.com/accounts/onetap/?next=%2F"))
+                if (uiManager.IsUrlChanged(driver, "https://www.instagram.com/accounts/onetap/?next=%2F"))
                 {
                     this.Activate();
-                    SwapControlLocations(ViewExplore, ViewLogin); // 로그인성공 시 화면 전환
+                    uiManager.SwapControlLocations(ViewExplore, ViewLogin); // 로그인성공 시 화면 전환
                 }
             }
             catch (Exception ex)
@@ -129,30 +125,20 @@ namespace With_Instagram
             }
         }
 
-        // 두 컨트롤의 위치를 교환하는 함수
-        private void SwapControlLocations(Control control1, Control control2)
-        {
-            Point tempLocation = control1.Location;
-            control1.Location = control2.Location;
-            control2.Location = tempLocation;
-        }
+        
 
         private void btnLike_Click(object sender, EventArgs e)
         {
-            // 탐색버튼의 XPath를 먼저 찾고 탐색해야함
-            uiManager.ExploreInstagram(driver);
+            
+            uiManager.ExploreInstagram(driver, txtCount);
         }
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
-
+            uiManager.SwapControlLocations(ViewLogin, ViewExplore);
         }
 
-        private bool IsUrlChanged(string newUrl)
-        {
-            // 현재 URL과 비교하여 변경되었는지 확인
-            return !driver.Url.Equals(newUrl);
-        }
+
 
 
 

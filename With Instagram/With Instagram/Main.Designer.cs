@@ -30,6 +30,7 @@ namespace With_Instagram
         private void InitializeComponent()
         {
             this.ViewLogin = new System.Windows.Forms.GroupBox();
+            this.btnExit2 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.btnConnect = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
@@ -42,6 +43,7 @@ namespace With_Instagram
             this.btnLike = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ViewExplore = new System.Windows.Forms.GroupBox();
+            this.txtCount = new System.Windows.Forms.TextBox();
             this.btnUnfollow = new System.Windows.Forms.Button();
             this.btnFollow = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
@@ -53,6 +55,7 @@ namespace With_Instagram
             // 
             // ViewLogin
             // 
+            this.ViewLogin.Controls.Add(this.btnExit2);
             this.ViewLogin.Controls.Add(this.dataGridView1);
             this.ViewLogin.Controls.Add(this.btnConnect);
             this.ViewLogin.Controls.Add(this.btnDelete);
@@ -69,6 +72,17 @@ namespace With_Instagram
             this.ViewLogin.TabStop = false;
             this.ViewLogin.Text = "LoginView";
             // 
+            // btnExit2
+            // 
+            this.btnExit2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExit2.Location = new System.Drawing.Point(6, 375);
+            this.btnExit2.Name = "btnExit2";
+            this.btnExit2.Size = new System.Drawing.Size(81, 45);
+            this.btnExit2.TabIndex = 14;
+            this.btnExit2.Text = "Exit";
+            this.btnExit2.UseVisualStyleBackColor = true;
+            this.btnExit2.Click += new System.EventHandler(this.btnExit_Click);
+            // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -81,6 +95,7 @@ namespace With_Instagram
             // 
             // btnConnect
             // 
+            this.btnConnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConnect.Location = new System.Drawing.Point(43, 222);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(200, 44);
@@ -91,6 +106,7 @@ namespace With_Instagram
             // 
             // btnDelete
             // 
+            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.Location = new System.Drawing.Point(146, 172);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(97, 44);
@@ -101,6 +117,7 @@ namespace With_Instagram
             // 
             // btnSave
             // 
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Location = new System.Drawing.Point(43, 172);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(97, 44);
@@ -153,6 +170,7 @@ namespace With_Instagram
             // 
             // btnLike
             // 
+            this.btnLike.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLike.Location = new System.Drawing.Point(29, 35);
             this.btnLike.Name = "btnLike";
             this.btnLike.Size = new System.Drawing.Size(81, 45);
@@ -174,6 +192,7 @@ namespace With_Instagram
             // 
             // ViewExplore
             // 
+            this.ViewExplore.Controls.Add(this.txtCount);
             this.ViewExplore.Controls.Add(this.btnUnfollow);
             this.ViewExplore.Controls.Add(this.btnFollow);
             this.ViewExplore.Controls.Add(this.btnExit);
@@ -186,8 +205,17 @@ namespace With_Instagram
             this.ViewExplore.TabStop = false;
             this.ViewExplore.Text = "ExploreView";
             // 
+            // txtCount
+            // 
+            this.txtCount.Location = new System.Drawing.Point(116, 46);
+            this.txtCount.Name = "txtCount";
+            this.txtCount.Size = new System.Drawing.Size(81, 25);
+            this.txtCount.TabIndex = 15;
+            this.txtCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // btnUnfollow
             // 
+            this.btnUnfollow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUnfollow.Location = new System.Drawing.Point(116, 86);
             this.btnUnfollow.Name = "btnUnfollow";
             this.btnUnfollow.Size = new System.Drawing.Size(81, 45);
@@ -197,6 +225,7 @@ namespace With_Instagram
             // 
             // btnFollow
             // 
+            this.btnFollow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFollow.Location = new System.Drawing.Point(29, 86);
             this.btnFollow.Name = "btnFollow";
             this.btnFollow.Size = new System.Drawing.Size(81, 45);
@@ -206,6 +235,7 @@ namespace With_Instagram
             // 
             // btnExit
             // 
+            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.Location = new System.Drawing.Point(29, 366);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(81, 45);
@@ -216,6 +246,7 @@ namespace With_Instagram
             // 
             // btnLogout
             // 
+            this.btnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogout.Location = new System.Drawing.Point(29, 315);
             this.btnLogout.Name = "btnLogout";
             this.btnLogout.Size = new System.Drawing.Size(81, 45);
@@ -239,6 +270,7 @@ namespace With_Instagram
             this.ViewLogin.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ViewExplore.ResumeLayout(false);
+            this.ViewExplore.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -262,6 +294,8 @@ namespace With_Instagram
         private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.Button btnUnfollow;
         private System.Windows.Forms.Button btnFollow;
+        private System.Windows.Forms.Button btnExit2;
+        private System.Windows.Forms.TextBox txtCount;
     }
 }
 
