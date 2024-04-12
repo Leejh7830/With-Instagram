@@ -218,7 +218,7 @@ namespace With_Instagram
                 string nextXPath3 = "/html/body/div[7]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div/button";
                 string nextXPath4 = "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div[2]/button";
                 string nextXPath5 = "/html/body/div[8]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div[2]/button";
-
+                
                 string[] nextXPaths = new string[] { nextXPath1, nextXPath2 , nextXPath3 , nextXPath4 , nextXPath5 };
 
                 for (int i = 0; i < count; i++)
@@ -230,13 +230,13 @@ namespace With_Instagram
 
                     // 두 번째 Xpath에 대한 다이나믹 Xpath
                     string secondDynamicXpath = heartXpath.Replace("div[7]", "div[*]");
-
+                    
                     IWebElement divHeart = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(heartXpath)));
 
                     divHeart.Click();
                     Console.WriteLine($"[{now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] Like 클릭1 성공");
-                    // divHeart.Click();
-                    // Console.WriteLine($"[{now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] Like 클릭2 성공");
+                    divHeart.Click();
+                    Console.WriteLine($"[{now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] Like 클릭2 성공");
 
                     IWebElement divNext = null;
 
@@ -263,7 +263,7 @@ namespace With_Instagram
                     }
                     Thread.Sleep(2000);
                 }
-
+                MessageBox.Show("종료");
 
             }
             catch (WebDriverTimeoutException ex)
