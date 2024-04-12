@@ -235,8 +235,8 @@ namespace With_Instagram
 
                     divHeart.Click();
                     Console.WriteLine($"[{now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] Like 클릭1 성공");
-                    divHeart.Click();
-                    Console.WriteLine($"[{now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] Like 클릭2 성공");
+                    // divHeart.Click();
+                    // Console.WriteLine($"[{now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] Like 클릭2 성공");
 
                     IWebElement divNext = null;
 
