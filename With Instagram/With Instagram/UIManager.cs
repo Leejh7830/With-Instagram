@@ -26,7 +26,7 @@ namespace With_Instagram
 
 
 
-        public void LoadUsers(ComboBox cboxID1)
+        public void LoadUsers(ComboBox cboxID1, DataGridView dgvUser)
         {
             try
             {
@@ -48,6 +48,9 @@ namespace With_Instagram
                             };
                             users.Add(user);
                             cboxID1.Items.Add(user);
+
+                            // DataGridView에 사용자 ID 추가
+                            dgvUser.Rows.Add(user.ID);
                         }
                     }
                 }
@@ -55,34 +58,6 @@ namespace With_Instagram
             catch (Exception ex)
             {
                 MessageBox.Show($"사용자 정보를 불러오는 도중 오류가 발생했습니다: {ex.Message}");
-            }
-        }
-
-        public void SaveUsers()
-        {
-            try
-            {
-                // 사용자 정보를 파일에 저장
-                string filePath = "users.dat";
-
-                // 파일이 존재하지 않으면 새로 생성
-                if (!File.Exists(filePath))
-                {
-                    File.Create(filePath).Close();
-                }
-
-                // 파일에 사용자 정보 작성
-                using (StreamWriter writer = new StreamWriter(filePath))
-                {
-                    foreach (User user in users)
-                    {
-                        writer.WriteLine($"{user.ID},{user.Password}");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"사용자 정보를 저장하는 도중 오류가 발생했습니다: {ex.Message}");
             }
         }
 

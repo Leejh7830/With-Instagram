@@ -30,8 +30,24 @@ namespace With_Instagram
             InitializeComponent();
             uiManager = new UIManager();
             this.Size = new Size(600, 400);
-            uiManager.LoadUsers(cboxID1);
+            uiManager.LoadUsers(cboxID1,dgvUser);
+            SetupDataGridView();
         }
+
+        private void SetupDataGridView()
+        {
+            // DataGridView에 컬럼 추가
+            dgvUser.Columns.Add("IDColumn", "User ID");
+
+            // DataGridView에 사용자 ID 컬럼 폭 설정
+            dgvUser.Columns["IDColumn"].Width = 100;
+
+            // DataGridView에 사용자 ID 컬럼을 읽기 전용으로 설정
+            dgvUser.Columns["IDColumn"].ReadOnly = true;
+        }
+
+
+
 
         public void BtnSave_Click(object sender, EventArgs e)
         {

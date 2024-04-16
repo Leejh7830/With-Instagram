@@ -31,7 +31,7 @@ namespace With_Instagram
         {
             this.ViewLogin = new System.Windows.Forms.GroupBox();
             this.btnExit2 = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvUser = new System.Windows.Forms.DataGridView();
             this.btnConnect = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
@@ -49,14 +49,14 @@ namespace With_Instagram
             this.btnExit = new System.Windows.Forms.Button();
             this.btnLogout = new System.Windows.Forms.Button();
             this.ViewLogin.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUser)).BeginInit();
             this.ViewExplore.SuspendLayout();
             this.SuspendLayout();
             // 
             // ViewLogin
             // 
             this.ViewLogin.Controls.Add(this.btnExit2);
-            this.ViewLogin.Controls.Add(this.dataGridView1);
+            this.ViewLogin.Controls.Add(this.dgvUser);
             this.ViewLogin.Controls.Add(this.btnConnect);
             this.ViewLogin.Controls.Add(this.btnDelete);
             this.ViewLogin.Controls.Add(this.btnSave);
@@ -67,7 +67,7 @@ namespace With_Instagram
             this.ViewLogin.Controls.Add(this.insID);
             this.ViewLogin.Location = new System.Drawing.Point(12, 12);
             this.ViewLogin.Name = "ViewLogin";
-            this.ViewLogin.Size = new System.Drawing.Size(634, 426);
+            this.ViewLogin.Size = new System.Drawing.Size(649, 439);
             this.ViewLogin.TabIndex = 0;
             this.ViewLogin.TabStop = false;
             this.ViewLogin.Text = "LoginView";
@@ -83,15 +83,15 @@ namespace With_Instagram
             this.btnExit2.UseVisualStyleBackColor = true;
             this.btnExit2.Click += new System.EventHandler(this.btnExit_Click);
             // 
-            // dataGridView1
+            // dgvUser
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(249, 15);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 27;
-            this.dataGridView1.Size = new System.Drawing.Size(378, 405);
-            this.dataGridView1.TabIndex = 8;
+            this.dgvUser.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvUser.Location = new System.Drawing.Point(256, 21);
+            this.dgvUser.Name = "dgvUser";
+            this.dgvUser.RowHeadersWidth = 51;
+            this.dgvUser.RowTemplate.Height = 27;
+            this.dgvUser.Size = new System.Drawing.Size(378, 405);
+            this.dgvUser.TabIndex = 8;
             // 
             // btnConnect
             // 
@@ -268,7 +268,7 @@ namespace With_Instagram
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.ViewLogin.ResumeLayout(false);
             this.ViewLogin.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUser)).EndInit();
             this.ViewExplore.ResumeLayout(false);
             this.ViewExplore.PerformLayout();
             this.ResumeLayout(false);
@@ -286,7 +286,7 @@ namespace With_Instagram
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnConnect;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvUser;
         private System.Windows.Forms.Button btnLike;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.GroupBox ViewExplore;
