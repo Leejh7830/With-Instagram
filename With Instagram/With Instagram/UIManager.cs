@@ -26,7 +26,7 @@ namespace With_Instagram
 
 
 
-        public void LoadUsers(ComboBox cboxID1, DataGridView dgvUser)
+        public void LoadUsers(ComboBox cboxID1)
         {
             try
             {
@@ -48,9 +48,6 @@ namespace With_Instagram
                             };
                             users.Add(user);
                             cboxID1.Items.Add(user);
-
-                            // DataGridView에 사용자 ID 추가
-                            dgvUser.Rows.Add(user.ID);
                         }
                     }
                 }
@@ -58,6 +55,29 @@ namespace With_Instagram
             catch (Exception ex)
             {
                 MessageBox.Show($"사용자 정보를 불러오는 도중 오류가 발생했습니다: {ex.Message}");
+            }
+        }
+
+        public void UpdateDGV(DataGridView dgvUser)
+        {
+            try
+            {
+                // DataGridView 초기화
+                dgvUser.Rows.Clear();
+
+                // DataGridView에 사용자 정보 출력
+                foreach (User user in users)
+                {
+                    // No 열에 들어갈 값은 현재 줄 수
+                    string noValue = (dgvUser.Rows.Count).ToString();
+
+                    // DataGridView에 행 추가
+                    dgvUser.Rows.Add(noValue, user.ID);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"DataGridView를 업데이트하는 도중 오류가 발생했습니다: {ex.Message}");
             }
         }
 

@@ -30,17 +30,23 @@ namespace With_Instagram
             InitializeComponent();
             uiManager = new UIManager();
             this.Size = new Size(600, 400);
-            uiManager.LoadUsers(cboxID1,dgvUser);
             SetupDataGridView();
+            uiManager.LoadUsers(cboxID1,dgvUser);
         }
 
         private void SetupDataGridView()
         {
             // DataGridView에 컬럼 추가
+            dgvUser.Columns.Add("NoColumn", "No");
             dgvUser.Columns.Add("IDColumn", "User ID");
 
             // DataGridView에 사용자 ID 컬럼 폭 설정
-            dgvUser.Columns["IDColumn"].Width = 100;
+            int totalWidth = dgvUser.Width;
+            int noColumnWidth = totalWidth / 3;
+            int idColumnWidth = totalWidth * 2 / 3;
+
+            dgvUser.Columns["NoColumn"].Width = noColumnWidth;
+            dgvUser.Columns["IDColumn"].Width = idColumnWidth;
 
             // DataGridView에 사용자 ID 컬럼을 읽기 전용으로 설정
             dgvUser.Columns["IDColumn"].ReadOnly = true;
@@ -97,7 +103,7 @@ namespace With_Instagram
             string chromeDriverRelativePath = $"chromedriver.exe";
             string chromeDriverPath = Path.GetFullPath(Path.Combine(executableLocation, chromeDriverRelativePath));
 
-            // 크롬 드라이버 옵션 설정
+            // 크롬 드라이버 옵션 설정;
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("start-maximized"); // 창을 최대화하여 열기
 
