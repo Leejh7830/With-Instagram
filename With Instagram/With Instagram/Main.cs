@@ -31,7 +31,7 @@ namespace With_Instagram
             uiManager = new UIManager();
             this.Size = new Size(600, 400);
             SetupDataGridView();
-            uiManager.LoadUsers(cboxID1,dgvUser);
+            uiManager.LoadUsers(cboxID1);
         }
 
         private void SetupDataGridView()

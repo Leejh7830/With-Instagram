@@ -81,7 +81,7 @@ namespace With_Instagram
             }
         }
 
-        public void SaveUsers(List<User> userList)
+        public void WriteUser(List<User> userList)
         {
             try
             {
@@ -130,7 +130,7 @@ namespace With_Instagram
             {
                 // 이미 있는 사용자의 비밀번호를 업데이트
                 existingUser.Password = newPW;
-                SaveUsers(users);
+                WriteUser(users);
                 MessageBox.Show("비밀번호가 업데이트되었습니다.");
             }
             else
@@ -145,7 +145,7 @@ namespace With_Instagram
                 cboxID1.Items.Add(user);
 
                 // 사용자 정보를 저장
-                SaveUsers(users);
+                WriteUser(users);
 
                 MessageBox.Show("새로운 사용자가 추가되었습니다.");
             }
@@ -166,7 +166,7 @@ namespace With_Instagram
             MessageBox.Show("사용자가 삭제되었습니다.");
 
             // 사용자 정보를 파일에서 저장
-            SaveUsers(users);
+            WriteUser(users);
         }
 
 
