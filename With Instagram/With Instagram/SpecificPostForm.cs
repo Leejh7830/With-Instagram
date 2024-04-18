@@ -19,7 +19,7 @@ namespace With_Instagram
         {
             InitializeComponent();
         }
-        
+         
         private void btnEnter1_Click(object sender, EventArgs e)
         {
             // 텍스트박스에서 주소값을 가져와서 addr 속성에 저장
