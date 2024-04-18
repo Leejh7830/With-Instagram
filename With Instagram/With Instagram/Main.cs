@@ -24,6 +24,7 @@ namespace With_Instagram
         // private string apiKey = "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";
         private IWebDriver driver;
         private readonly UIManager uiManager;
+        SpecificPostForm specificPostForm = new SpecificPostForm(); // https://www.instagram.com/p/C54n1MPPaJN/
 
         public MainForm()
         {
@@ -32,6 +33,7 @@ namespace With_Instagram
             this.Size = new Size(600, 400);
             SetupDataGridView();
             uiManager.LoadUsers(cboxID1);
+            uiManager.UpdateDGV(dgvUser);
         }
 
         private void SetupDataGridView()
@@ -42,14 +44,16 @@ namespace With_Instagram
 
             // DataGridView에 사용자 ID 컬럼 폭 설정
             int totalWidth = dgvUser.Width;
-            int noColumnWidth = totalWidth / 3;
-            int idColumnWidth = totalWidth * 2 / 3;
+            int noColumnWidth = totalWidth / 5;
+            int idColumnWidth = totalWidth * 4 / 5;
 
             dgvUser.Columns["NoColumn"].Width = noColumnWidth;
             dgvUser.Columns["IDColumn"].Width = idColumnWidth;
 
             // DataGridView에 사용자 ID 컬럼을 읽기 전용으로 설정
             dgvUser.Columns["IDColumn"].ReadOnly = true;
+            // 행 헤더 열 숨기기
+            dgvUser.RowHeadersVisible = false;
         }
 
 
@@ -64,6 +68,7 @@ namespace With_Instagram
             if (uiManager.IsInputValid(newID, newPW))
             {
                 uiManager.SaveUser(newID, newPW, cboxID1);
+                uiManager.UpdateDGV(dgvUser);
             }
         }
         
@@ -73,6 +78,7 @@ namespace With_Instagram
             {
                 User selectedUser = (User)cboxID1.SelectedItem;
                 uiManager.DeleteUser(selectedUser, cboxID1, txtID1, txtPW1);
+                uiManager.UpdateDGV(dgvUser);
             }
             else
             {
@@ -80,7 +86,7 @@ namespace With_Instagram
             }
         }
         
-        private void cboxID1_SelectedIndexChanged(object sender, EventArgs e)
+        private void CboxID1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cboxID1.SelectedItem != null)
             {
@@ -90,7 +96,25 @@ namespace With_Instagram
             }
         }
 
-        private void btnConnect_Click(object sender, EventArgs e)
+        /// /////////////////////////////////////////////////미완성
+        private void DgvUser_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.RowIndex < dgvUser.Rows.Count)
+            {
+                DataGridViewRow selectedRow = dgvUser.Rows[e.RowIndex];
+                if (selectedRow.DataBoundItem != null && selectedRow.DataBoundItem is User)
+                {
+                    User selectedUser = (User)selectedRow.DataBoundItem;
+                    txtID1.Text = selectedUser.ID;
+                    txtPW1.Text = selectedUser.Password;
+                }
+            }
+        }
+
+
+
+
+        private void BtnConnect_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtID1.Text))
             {
@@ -182,6 +206,24 @@ namespace With_Instagram
                 driver = null;
             }
         }
+
+        private void btnSpecificPost_Click(object sender, EventArgs e)
+        {
+            SpecificPostForm specificPostForm = new SpecificPostForm();
+            specificPostForm.TopMost = true; // 최상위로 설정
+            specificPostForm.FormClosed += SpecificPostForm_FormClosed; // 폼이 닫히면 이벤트 처리
+            specificPostForm.Show();
+        }
+
+        private void SpecificPostForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            SpecificPostForm specificPostForm = sender as SpecificPostForm;
+            if (specificPostForm != null)
+            {
+                specificPostForm.TopMost = false; // 최상위 설정 해제
+            }
+        }
+
     }
 }
 

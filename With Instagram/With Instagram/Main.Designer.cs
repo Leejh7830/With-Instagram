@@ -30,6 +30,7 @@ namespace With_Instagram
         private void InitializeComponent()
         {
             this.ViewLogin = new System.Windows.Forms.GroupBox();
+            this.btnSpecificPost = new System.Windows.Forms.Button();
             this.btnExit2 = new System.Windows.Forms.Button();
             this.dgvUser = new System.Windows.Forms.DataGridView();
             this.btnConnect = new System.Windows.Forms.Button();
@@ -55,6 +56,7 @@ namespace With_Instagram
             // 
             // ViewLogin
             // 
+            this.ViewLogin.Controls.Add(this.btnSpecificPost);
             this.ViewLogin.Controls.Add(this.btnExit2);
             this.ViewLogin.Controls.Add(this.dgvUser);
             this.ViewLogin.Controls.Add(this.btnConnect);
@@ -71,6 +73,17 @@ namespace With_Instagram
             this.ViewLogin.TabIndex = 0;
             this.ViewLogin.TabStop = false;
             this.ViewLogin.Text = "LoginView";
+            // 
+            // btnSpecificPost
+            // 
+            this.btnSpecificPost.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSpecificPost.Location = new System.Drawing.Point(505, 21);
+            this.btnSpecificPost.Name = "btnSpecificPost";
+            this.btnSpecificPost.Size = new System.Drawing.Size(138, 44);
+            this.btnSpecificPost.TabIndex = 15;
+            this.btnSpecificPost.Text = "Specific Post";
+            this.btnSpecificPost.UseVisualStyleBackColor = true;
+            this.btnSpecificPost.Click += new System.EventHandler(this.btnSpecificPost_Click);
             // 
             // btnExit2
             // 
@@ -90,8 +103,9 @@ namespace With_Instagram
             this.dgvUser.Name = "dgvUser";
             this.dgvUser.RowHeadersWidth = 51;
             this.dgvUser.RowTemplate.Height = 27;
-            this.dgvUser.Size = new System.Drawing.Size(378, 405);
+            this.dgvUser.Size = new System.Drawing.Size(243, 405);
             this.dgvUser.TabIndex = 8;
+            this.dgvUser.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvUser_CellClick);
             // 
             // btnConnect
             // 
@@ -102,7 +116,7 @@ namespace With_Instagram
             this.btnConnect.TabIndex = 7;
             this.btnConnect.Text = "Connect";
             this.btnConnect.UseVisualStyleBackColor = true;
-            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
+            this.btnConnect.Click += new System.EventHandler(this.BtnConnect_Click);
             // 
             // btnDelete
             // 
@@ -148,7 +162,7 @@ namespace With_Instagram
             this.cboxID1.Name = "cboxID1";
             this.cboxID1.Size = new System.Drawing.Size(200, 23);
             this.cboxID1.TabIndex = 2;
-            this.cboxID1.SelectedIndexChanged += new System.EventHandler(this.cboxID1_SelectedIndexChanged);
+            this.cboxID1.SelectedIndexChanged += new System.EventHandler(this.CboxID1_SelectedIndexChanged);
             // 
             // insPW
             // 
@@ -296,6 +310,7 @@ namespace With_Instagram
         private System.Windows.Forms.Button btnFollow;
         private System.Windows.Forms.Button btnExit2;
         private System.Windows.Forms.TextBox txtCount;
+        private System.Windows.Forms.Button btnSpecificPost;
     }
 }
 
