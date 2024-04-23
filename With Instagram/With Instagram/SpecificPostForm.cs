@@ -13,7 +13,7 @@ namespace With_Instagram
     public partial class SpecificPostForm : Form
     {
         // addr 속성을 추가하여 주소값을 저장할 수 있도록 함
-        public string Address { get; private set; }
+        public string Address { get; set; }
 
         public SpecificPostForm()
         {
@@ -22,11 +22,16 @@ namespace With_Instagram
          
         private void btnEnter1_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtAddr1.Text))
+            {
+                MessageBox.Show("Addr 입력하세요");
+                return;
+            };
+
             // 텍스트박스에서 주소값을 가져와서 addr 속성에 저장
             Address = txtAddr1.Text;
 
-            // 폼을 닫음
-            this.Close();
+            
         }
     }
 }
