@@ -27,7 +27,7 @@ namespace With_Instagram
                 MessageBox.Show("Addr 입력하세요");
                 return;
             };
-              
+               
             // 텍스트박스에서 주소값을 가져와서 addr 속성에 저장
             Address = txtAddr1.Text;
 
