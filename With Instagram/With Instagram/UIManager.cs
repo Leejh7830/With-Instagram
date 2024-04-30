@@ -170,24 +170,24 @@ namespace With_Instagram
         }
 
 
-        public void ExploreInstagram(IWebDriver driver, TextBox txtCount)
+        public void Explore_Like(IWebDriver driver, TextBox txtCount)
         {
             try
             {
                 string CountText = txtCount.Text;
                 if (string.IsNullOrWhiteSpace(CountText))
                 {
-                    MessageBox.Show("LikeCount에 유효한 값이 입력되지 않았습니다.");
+                    MessageBox.Show("Count에 유효한 값이 입력되지 않았습니다.");
                     return;
                 }
                 if (int.TryParse(CountText, out int count))
                 {
-                    Console.WriteLine("LikeCount: " + count);
+                    Console.WriteLine("Count: " + count);
                 }
                 else
                 {
                     // 변환에 실패한 경우
-                    MessageBox.Show("LikeCount에 유효한 숫자가 아닌 값이 입력되었습니다.");
+                    MessageBox.Show("Count에 유효한 숫자가 아닌 값이 입력되었습니다.");
                     return;
                 }
 
@@ -273,8 +273,119 @@ namespace With_Instagram
                 // 요소를 찾지 못한 경우 발생하는 예외 처리
                 MessageBox.Show($"탐색(Explore)을 찾을 수 없습니다. 원인: {ex.Message}");
             }
-
         }
+
+        public void Explore_Follow(IWebDriver driver, TextBox txtCount)
+        {
+            try
+            {
+                string CountText = txtCount.Text;
+                if (string.IsNullOrWhiteSpace(CountText))
+                {
+                    MessageBox.Show("Count에 유효한 값이 입력되지 않았습니다.");
+                    return;
+                }
+                if (int.TryParse(CountText, out int count))
+                {
+                    Console.WriteLine("Count: " + count);
+                }
+                else
+                {
+                    // 변환에 실패한 경우
+                    MessageBox.Show("Count에 유효한 숫자가 아닌 값이 입력되었습니다.");
+                    return;
+                }
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+
+                // mount_0_0_XX 부분이 변경되는 경우에도 동작하는 XPath 작성
+                string expXPath = "//*[starts-with(@id, 'mount_0_0_')]/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[3]/span/div/a";
+
+                // ElementToBeClickable을 사용하여 요소가 클릭 가능할 때까지 대기
+                IWebElement divExp = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(expXPath)));
+                divExp.Click();
+                Console.WriteLine($"[{DateTime.Now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] EXP 클릭 성공");
+
+                string contentXPath = "//*[starts-with(@id, 'mount_0_0_')]/div/div/div[2]/div/div/div[1]/div[1]/div[2]/section/main/div/div[1]/div/div[1]/div[2]/div/a";
+                IWebElement divContent = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(contentXPath)));
+                divContent.Click();
+                Console.WriteLine($"[{DateTime.Now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] Content 클릭 성공");
+
+                string followXpath1 = "/html/body/div[8]/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[1]/div/header/div[2]/div[1]/div[2]/button/div/div";
+                string followXpath2 = "/html/body/div[7]/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[1]/div/header/div[2]/div[1]/div[2]/button/div/div";
+                string followXpath3 = "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[1]/div/header/div[2]/div[1]/div[2]/button/div/div";
+                string[] followXpaths = new string[] { followXpath1, followXpath2, followXpath3 };
+
+                string nextXPath1 = "/html/body/div[8]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div/button";
+                string nextXPath2 = "/html/body/div[7]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div[2]/button";
+                string nextXPath3 = "/html/body/div[7]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div/button";
+                string nextXPath4 = "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div[2]/button";
+                string nextXPath5 = "/html/body/div[8]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div[2]/button";
+                string[] nextXPaths = new string[] { nextXPath1, nextXPath2, nextXPath3, nextXPath4, nextXPath5 };
+
+                for (int i = 0; i < count; i++)
+                {
+                    IWebElement divFollow = null;
+
+                    for (int j = 0; j < followXpaths.Length; j++)
+                    {
+                        string followXpath = followXpaths[j];
+                        try
+                        {
+                            divFollow = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(followXpath)));
+                            divFollow.Click();
+                            Console.WriteLine($"[{DateTime.Now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] Follow 클릭 성공 ({j + 1}/{followXpaths.Length})");
+                            break;
+                        } catch (WebDriverTimeoutException)
+                        {
+                            // 다음 XPath로 시도
+                        }
+                    }
+
+
+                    
+
+                    IWebElement divNext = null;
+
+                    for (int k = 0; k < nextXPaths.Length; k++)
+                    {
+                        string nextXPath = nextXPaths[k];
+                        try
+                        {
+                            divNext = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(nextXPath)));
+                            divNext.Click();
+                            Console.WriteLine($"[{now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] Next 클릭 성공 ({k + 1}/{nextXPaths.Length})");
+                            Console.WriteLine($"[{now.ToString("yyyy-MM-dd, tt hh:mm:ss")}]     {i + 1}회 반복 완료");
+                            break; // 성공적으로 찾았을 때 루프 탈출
+                        }
+                        catch (WebDriverTimeoutException)
+                        {
+                            // 다음 XPath로 시도
+                        }
+                    }
+
+                    if (divNext == null)
+                    {
+                        Console.WriteLine("Next 버튼을 찾을 수 없습니다. 반복을 중지합니다.");
+                        break;
+                    }
+                    Thread.Sleep(2000);
+                }
+                MessageBox.Show("종료");
+
+            }
+            catch (WebDriverTimeoutException ex)
+            {
+                // 대기 시간이 초과되면 발생하는 예외 처리
+                MessageBox.Show($"요소가 클릭 가능 상태가 되지 않았습니다. 원인: {ex.Message}");
+            }
+            catch (NoSuchElementException ex)
+            {
+                // 요소를 찾지 못한 경우 발생하는 예외 처리
+                MessageBox.Show($"탐색(Explore)을 찾을 수 없습니다. 원인: {ex.Message}");
+            }
+        }
+
+
 
         // 두 컨트롤의 위치를 교환하는 함수
         public void SwapControlLocations(Control control1, Control control2)

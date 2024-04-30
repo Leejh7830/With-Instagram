@@ -221,7 +221,7 @@ namespace With_Instagram
             // 
             // txtCount
             // 
-            this.txtCount.Location = new System.Drawing.Point(116, 46);
+            this.txtCount.Location = new System.Drawing.Point(204, 47);
             this.txtCount.Name = "txtCount";
             this.txtCount.Size = new System.Drawing.Size(81, 25);
             this.txtCount.TabIndex = 15;
@@ -246,6 +246,7 @@ namespace With_Instagram
             this.btnFollow.TabIndex = 12;
             this.btnFollow.Text = "Follow";
             this.btnFollow.UseVisualStyleBackColor = true;
+            this.btnFollow.Click += new System.EventHandler(this.btnFollow_Click);
             // 
             // btnExit
             // 
