@@ -199,12 +199,12 @@ namespace With_Instagram
                 // ElementToBeClickable을 사용하여 요소가 클릭 가능할 때까지 대기
                 IWebElement divExp = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(expXPath)));
                 divExp.Click();
-                Console.WriteLine($"[{now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] EXP 클릭 성공");
+                Console.WriteLine($"[{DateTime.Now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] EXP 클릭 성공");
 
                 string contentXPath = "//*[starts-with(@id, 'mount_0_0_')]/div/div/div[2]/div/div/div[1]/div[1]/div[2]/section/main/div/div[1]/div/div[1]/div[2]/div/a";
                 IWebElement divContent = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(contentXPath)));
                 divContent.Click();
-                Console.WriteLine($"[{now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] Content 클릭 성공");
+                Console.WriteLine($"[{DateTime.Now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] Content 클릭 성공");
 
 
 
@@ -229,9 +229,10 @@ namespace With_Instagram
                     IWebElement divHeart = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(heartXpath)));
 
                     divHeart.Click();
-                    Console.WriteLine($"[{now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] Like 클릭1 성공");
+                    Console.WriteLine($"[{DateTime.Now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] Like 클릭1 성공");
                     divHeart.Click();
-                    Console.WriteLine($"[{now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] Like 클릭2 성공");
+                    Console.WriteLine($"[{DateTime.Now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] Like 클릭2 성공");
+
 
                     IWebElement divNext = null;
 
@@ -243,6 +244,7 @@ namespace With_Instagram
                             divNext = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(nextXPath)));
                             divNext.Click();
                             Console.WriteLine($"[{now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] Next 클릭 성공 ({j + 1}/{nextXPaths.Length})");
+                            Console.WriteLine($"[{now.ToString("yyyy-MM-dd, tt hh:mm:ss")}]     {i+1}회 반복 완료");
                             break; // 성공적으로 찾았을 때 루프 탈출
                         }
                         catch (WebDriverTimeoutException)
