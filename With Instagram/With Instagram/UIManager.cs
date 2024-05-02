@@ -200,18 +200,18 @@ namespace With_Instagram
                 IWebElement divExp = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(expXPath)));
                 divExp.Click();
                 Console.WriteLine($"[{DateTime.Now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] EXP 클릭 성공");
-
+                driver.Navigate().Refresh(); // 게시물 새로고침
+                Console.WriteLine($"[{DateTime.Now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] 페이지 새로고침 성공");
+                Thread.Sleep(1000);
                 string contentXPath = "//*[starts-with(@id, 'mount_0_0_')]/div/div/div[2]/div/div/div[1]/div[1]/div[2]/section/main/div/div[1]/div/div[1]/div[2]/div/a";
                 IWebElement divContent = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(contentXPath)));
                 divContent.Click();
                 Console.WriteLine($"[{DateTime.Now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] Content 클릭 성공");
 
-
-
                 string nextXPath1 = "/html/body/div[8]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div/button";
-                string nextXPath2 = "/html/body/div[7]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div[2]/button";
-                string nextXPath3 = "/html/body/div[7]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div/button";
-                string nextXPath4 = "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div[2]/button";
+                string nextXPath2 = "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div[2]/button";
+                string nextXPath3 = "/html/body/div[7]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div[2]/button";
+                string nextXPath4 = "/html/body/div[7]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div/button";
                 string nextXPath5 = "/html/body/div[8]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div[2]/button";
                 
                 string[] nextXPaths = new string[] { nextXPath1, nextXPath2 , nextXPath3 , nextXPath4 , nextXPath5 };
@@ -233,7 +233,6 @@ namespace With_Instagram
                     divHeart.Click();
                     Console.WriteLine($"[{DateTime.Now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] Like 클릭2 성공");
 
-
                     IWebElement divNext = null;
 
                     for (int j = 0; j < nextXPaths.Length; j++)
@@ -243,8 +242,8 @@ namespace With_Instagram
                         {
                             divNext = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(nextXPath)));
                             divNext.Click();
-                            Console.WriteLine($"[{now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] Next 클릭 성공 ({j + 1}/{nextXPaths.Length})");
-                            Console.WriteLine($"[{now.ToString("yyyy-MM-dd, tt hh:mm:ss")}]     {i+1}회 반복 완료");
+                            Console.WriteLine($"[{DateTime.Now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] Next 클릭 성공 ({j + 1}/{nextXPaths.Length})");
+                            Console.WriteLine($"[{DateTime.Now.ToString("yyyy-MM-dd, tt hh:mm:ss")}]            ★ {i+1}회 반복 완료");
                             break; // 성공적으로 찾았을 때 루프 탈출
                         }
                         catch (WebDriverTimeoutException)
@@ -260,6 +259,7 @@ namespace With_Instagram
                     }
                     Thread.Sleep(2000);
                 }
+                Console.WriteLine($"[{DateTime.Now.ToString("yyyy-MM-dd, tt hh:mm:ss")}]             ★★ {count} 회 작업 완료되었습니다.");
                 MessageBox.Show("종료");
 
             }
@@ -300,31 +300,33 @@ namespace With_Instagram
                 // mount_0_0_XX 부분이 변경되는 경우에도 동작하는 XPath 작성
                 string expXPath = "//*[starts-with(@id, 'mount_0_0_')]/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[3]/span/div/a";
 
-                // ElementToBeClickable을 사용하여 요소가 클릭 가능할 때까지 대기
                 IWebElement divExp = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(expXPath)));
-                divExp.Click();
+                divExp.Click(); // 탐색창 클릭
                 Console.WriteLine($"[{DateTime.Now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] EXP 클릭 성공");
-
+                driver.Navigate().Refresh(); // 게시물 새로고침
+                Console.WriteLine($"[{DateTime.Now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] 페이지 새로고침 성공");
+                Thread.Sleep(1000);
                 string contentXPath = "//*[starts-with(@id, 'mount_0_0_')]/div/div/div[2]/div/div/div[1]/div[1]/div[2]/section/main/div/div[1]/div/div[1]/div[2]/div/a";
                 IWebElement divContent = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(contentXPath)));
-                divContent.Click();
+                divContent.Click(); // 첫번째 게시물 클릭
                 Console.WriteLine($"[{DateTime.Now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] Content 클릭 성공");
 
-                string followXpath1 = "/html/body/div[8]/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[1]/div/header/div[2]/div[1]/div[2]/button/div/div";
-                string followXpath2 = "/html/body/div[7]/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[1]/div/header/div[2]/div[1]/div[2]/button/div/div";
-                string followXpath3 = "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[1]/div/header/div[2]/div[1]/div[2]/button/div/div";
+                string followXpath1 = "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[1]/div/header/div[2]/div[1]/div[2]/button/div/div";
+                string followXpath2 = "/html/body/div[8]/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[1]/div/header/div[2]/div[1]/div[2]/button/div/div";
+                string followXpath3 = "/html/body/div[7]/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[1]/div/header/div[2]/div[1]/div[2]/button/div/div";
                 string[] followXpaths = new string[] { followXpath1, followXpath2, followXpath3 };
 
                 string nextXPath1 = "/html/body/div[8]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div/button";
-                string nextXPath2 = "/html/body/div[7]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div[2]/button";
-                string nextXPath3 = "/html/body/div[7]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div/button";
-                string nextXPath4 = "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div[2]/button";
+                string nextXPath2 = "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div[2]/button";
+                string nextXPath3 = "/html/body/div[7]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div[2]/button";
+                string nextXPath4 = "/html/body/div[7]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div/button";
                 string nextXPath5 = "/html/body/div[8]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div[2]/button";
                 string[] nextXPaths = new string[] { nextXPath1, nextXPath2, nextXPath3, nextXPath4, nextXPath5 };
 
                 for (int i = 0; i < count; i++)
                 {
                     IWebElement divFollow = null;
+                    bool alreadyFollowed = false;
 
                     for (int j = 0; j < followXpaths.Length; j++)
                     {
@@ -332,17 +334,22 @@ namespace With_Instagram
                         try
                         {
                             divFollow = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(followXpath)));
-                            divFollow.Click();
-                            Console.WriteLine($"[{DateTime.Now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] Follow 클릭 성공 ({j + 1}/{followXpaths.Length})");
-                            break;
+                            if (divFollow.Displayed)
+                            {
+                                divFollow.Click();
+                                Console.WriteLine($"[{DateTime.Now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] Follow 클릭 성공 ({j + 1}/{followXpaths.Length})");
+                                alreadyFollowed = true;
+                                break; // 찾았을 때 루프 탈출
+                            }
                         } catch (WebDriverTimeoutException)
                         {
-                            // 다음 XPath로 시도
+                            Console.WriteLine($"[{DateTime.Now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] Follow Xpath 순환 ({j + 1}/{followXpaths.Length})");
                         }
                     }
-
-
-                    
+                    if (!alreadyFollowed) // alreadyFollow
+                    {
+                        Console.WriteLine($"[{DateTime.Now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] 이미 Follow 되어있습니다.");
+                    }
 
                     IWebElement divNext = null;
 
@@ -353,13 +360,13 @@ namespace With_Instagram
                         {
                             divNext = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(nextXPath)));
                             divNext.Click();
-                            Console.WriteLine($"[{now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] Next 클릭 성공 ({k + 1}/{nextXPaths.Length})");
-                            Console.WriteLine($"[{now.ToString("yyyy-MM-dd, tt hh:mm:ss")}]     {i + 1}회 반복 완료");
-                            break; // 성공적으로 찾았을 때 루프 탈출
+                            Console.WriteLine($"[{DateTime.Now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] Next 클릭 성공 ({k + 1}/{nextXPaths.Length})");
+                            Console.WriteLine($"[{DateTime.Now.ToString("yyyy-MM-dd, tt hh:mm:ss")}]            ★ {i + 1}회 반복 완료");
+                            break; // 찾았을 때 루프 탈출
                         }
                         catch (WebDriverTimeoutException)
                         {
-                            // 다음 XPath로 시도
+                            Console.WriteLine($"[{DateTime.Now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] Next Xpath 순환 ({k + 1}/{nextXPaths.Length})");
                         }
                     }
 
@@ -368,10 +375,10 @@ namespace With_Instagram
                         Console.WriteLine("Next 버튼을 찾을 수 없습니다. 반복을 중지합니다.");
                         break;
                     }
-                    Thread.Sleep(2000);
+                    Thread.Sleep(1000);
                 }
+                Console.WriteLine($"[{DateTime.Now.ToString("yyyy-MM-dd, tt hh:mm:ss")}]             ★★ {count} 회 작업 완료되었습니다.");
                 MessageBox.Show("종료");
-
             }
             catch (WebDriverTimeoutException ex)
             {
