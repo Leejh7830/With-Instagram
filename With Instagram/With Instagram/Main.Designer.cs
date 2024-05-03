@@ -49,6 +49,7 @@ namespace With_Instagram
             this.btnFollow = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.btnLogout = new System.Windows.Forms.Button();
+            this.btnStop = new System.Windows.Forms.Button();
             this.ViewLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUser)).BeginInit();
             this.ViewExplore.SuspendLayout();
@@ -206,6 +207,7 @@ namespace With_Instagram
             // 
             // ViewExplore
             // 
+            this.ViewExplore.Controls.Add(this.btnStop);
             this.ViewExplore.Controls.Add(this.txtCount);
             this.ViewExplore.Controls.Add(this.btnUnfollow);
             this.ViewExplore.Controls.Add(this.btnFollow);
@@ -270,6 +272,17 @@ namespace With_Instagram
             this.btnLogout.UseVisualStyleBackColor = true;
             this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
             // 
+            // btnStop
+            // 
+            this.btnStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStop.Location = new System.Drawing.Point(29, 264);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(81, 45);
+            this.btnStop.TabIndex = 16;
+            this.btnStop.Text = "Stop";
+            this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -312,6 +325,7 @@ namespace With_Instagram
         private System.Windows.Forms.Button btnExit2;
         private System.Windows.Forms.TextBox txtCount;
         private System.Windows.Forms.Button btnSpecificPost;
+        private System.Windows.Forms.Button btnStop;
     }
 }
 

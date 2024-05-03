@@ -25,6 +25,7 @@ namespace With_Instagram
         private IWebDriver driver;
         private readonly UIManager uiManager;
         SpecificPostForm specificPostForm = new SpecificPostForm(); // https://www.instagram.com/p/C54n1MPPaJN/
+        private CancellationTokenSource cancellationTokenSource;
 
         public MainForm()
         {
@@ -181,15 +182,21 @@ namespace With_Instagram
 
         private async void btnFollow_Click(object sender, EventArgs e)
         {
+            cancellationTokenSource = new CancellationTokenSource();
+
             DialogResult result = MessageBox.Show("탐색창에서 게시물을 돌며 팔로우합니다.", "Follow", MessageBoxButtons.OKCancel);
             if (result == DialogResult.OK)
             {
                 // uiManager.Explore_Follow(driver, txtCount);
-                await Task.Run(() => uiManager.Explore_Follow(driver, txtCount));
+                await Task.Run(() => uiManager.Explore_Follow(driver, txtCount, cancellationTokenSource.Token));
             }
         }
 
-
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("(MAIN) STOP CLICK");
+            cancellationTokenSource?.Cancel();
+        }
 
 
         private void btnLogout_Click(object sender, EventArgs e)

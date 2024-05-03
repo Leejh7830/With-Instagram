@@ -276,9 +276,11 @@ namespace With_Instagram
 
         }
 
-        public void Explore_Follow(IWebDriver driver, TextBox txtCount)
+        public void Explore_Follow(IWebDriver driver, TextBox txtCount, CancellationToken cancellationToken)
         {
             DateTime startTime = DateTime.Now; // 작업 시작 시간
+            int newFollowCount = 0;
+            int alreadyFollowCount = 0;
 
             try
             {
@@ -308,6 +310,7 @@ namespace With_Instagram
                 LogMessage("EXP 클릭 성공");
                 driver.Navigate().Refresh(); // 게시물 새로고침
                 LogMessage("페이지 새로고침 성공");
+                CheckCancellationRequested(cancellationToken); // 중단기점
                 Thread.Sleep(1000);
                 string contentXPath = "//*[starts-with(@id, 'mount_0_0_')]/div/div/div[2]/div/div/div[1]/div[1]/div[2]/section/main/div/div[1]/div/div[1]/div[2]/div/a";
                 IWebElement divContent = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(contentXPath)));
@@ -330,8 +333,7 @@ namespace With_Instagram
                 {
                     IWebElement divFollow = null;
                     bool alreadyFollowed = false;
-                    int newFollowCount = 0;
-                    int alreadyFollowCount = 0;
+                    
 
                     for (int j = 0; j < followXpaths.Length; j++)
                     {
@@ -341,10 +343,11 @@ namespace With_Instagram
                             divFollow = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(followXpath)));
                             if (divFollow.Displayed)
                             {
+                                CheckCancellationRequested(cancellationToken); // 중단기점
                                 divFollow.Click();
                                 LogMessage($"Follow 클릭 성공");
                                 alreadyFollowed = false;
-
+                                newFollowCount++;
                                 break; // 찾았을 때 루프 탈출
                             }
                         } catch (WebDriverTimeoutException)
@@ -354,7 +357,9 @@ namespace With_Instagram
                     }
                     if (alreadyFollowed)
                     {
+                        CheckCancellationRequested(cancellationToken); // 중단기점
                         LogMessage("이미 Follow 되어있습니다.");
+                        alreadyFollowCount++;
                     }
 
                     IWebElement divNext = null;
@@ -364,10 +369,12 @@ namespace With_Instagram
                         string nextXPath = nextXPaths[k];
                         try
                         {
+                            CheckCancellationRequested(cancellationToken); // 중단기점
                             divNext = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(nextXPath)));
                             divNext.Click();
                             LogMessage("Next 클릭 성공");
                             LogMessage($"★ {i + 1}회 반복 완료");
+                            WaitRandomTime();
                             break; // 찾았을 때 루프 탈출
                         }
                         catch (WebDriverTimeoutException)
@@ -385,20 +392,27 @@ namespace With_Instagram
                 }
                 DateTime endTime = DateTime.Now; // 작업 완료 시간
                 TimeSpan elapsedTime = endTime - startTime;
+                Console.WriteLine("--------------------------------------------------------------------------------");
                 LogMessage($"작업이 완료되었습니다. 소요 시간: {FormatElapsedTime(elapsedTime)}");
-
-                LogMessage($"★★ {count} 회 작업 완료되었습니다.");
-                MessageBox.Show("종료");
+                LogMessage($"{count} 회 작업 완료되었습니다. 신규: {newFollowCount} / 기존: {alreadyFollowCount}");
+                Console.WriteLine("--------------------------------------------------------------------------------");
+                MessageBox.Show("작업 종료");
             }
             catch (WebDriverTimeoutException ex)
             {
-                // 대기 시간이 초과되면 발생하는 예외 처리
+                // 대기 시간이 초과
                 MessageBox.Show($"요소가 클릭 가능 상태가 되지 않았습니다. 원인: {ex.Message}");
             }
             catch (NoSuchElementException ex)
             {
-                // 요소를 찾지 못한 경우 발생하는 예외 처리
+                // 요소를 찾지 못한 경우
                 MessageBox.Show($"탐색(Explore)을 찾을 수 없습니다. 원인: {ex.Message}");
+            }
+            catch (OperationCanceledException)
+            {
+                // 작업 중단 요청
+                LogMessage($"(MANAGER) 작업 중단 요청 수신");
+                return;
             }
         }
 
@@ -438,6 +452,16 @@ namespace With_Instagram
 
             LogMessage($"{delaySeconds:F1} 초만큼 기다립니다.");
             Thread.Sleep(delayMilliseconds);
+        }
+
+        // Stop버튼 클릭 시 작업 중단
+        private void CheckCancellationRequested(CancellationToken cancellationToken)
+        {
+            if (cancellationToken.IsCancellationRequested)
+            {
+                // 취소 요청이 들어왔으므로 작업을 중지하고 메서드를 종료합니다.
+                throw new OperationCanceledException();
+            }
         }
 
         static void LogMessage(string message)
