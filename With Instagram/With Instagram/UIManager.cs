@@ -244,6 +244,7 @@ namespace With_Instagram
                             divNext.Click();
                             LogMessage($"Next 클릭 성공 ({j + 1}/{nextXPaths.Length})");
                             LogMessage($"★ {i+1}회 반복 완료");
+                            WaitRandomTime();
                             break; // 성공적으로 찾았을 때 루프 탈출
                         }
                         catch (WebDriverTimeoutException)
@@ -392,9 +393,10 @@ namespace With_Instagram
                 }
                 DateTime endTime = DateTime.Now; // 작업 완료 시간
                 TimeSpan elapsedTime = endTime - startTime;
+                int totalCount = newFollowCount + alreadyFollowCount;
                 Console.WriteLine("--------------------------------------------------------------------------------");
                 LogMessage($"작업이 완료되었습니다. 소요 시간: {FormatElapsedTime(elapsedTime)}");
-                LogMessage($"{count} 회 작업 완료되었습니다. 신규: {newFollowCount} / 기존: {alreadyFollowCount}");
+                LogMessage($"{totalCount} 회 작업 완료되었습니다. 신규: {newFollowCount} / 기존: {alreadyFollowCount}");
                 Console.WriteLine("--------------------------------------------------------------------------------");
                 MessageBox.Show("작업 종료");
             }
@@ -416,7 +418,10 @@ namespace With_Instagram
             }
         }
 
-
+        // U
+        // T
+        // I
+        // L
 
         // 작업 시간 계산
         static string FormatElapsedTime(TimeSpan elapsedTime)
@@ -445,7 +450,7 @@ namespace With_Instagram
         {
             Random random = new Random();
 
-            int delayMilliseconds = random.Next(5000, 15001); // milliseconds (1초 = 1000 밀리초)
+            int delayMilliseconds = random.Next(20000, 40001); // milliseconds (1초 = 1000 밀리초)
 
             // 초로 변환
             double delaySeconds = delayMilliseconds / 1000.0;
