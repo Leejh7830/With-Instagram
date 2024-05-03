@@ -175,19 +175,17 @@ namespace With_Instagram
 
         private void btnLike_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("입력 횟수만큼 탐색창에서 게시물 Like를 클릭합니다.", "LIKE", MessageBoxButtons.OKCancel);
-            if (result == DialogResult.OK)
-            {
-                uiManager.Explore_Like(driver, txtCount);
-            }
+            
+            uiManager.Explore_Like(driver, txtCount);
         }
 
-        private void btnFollow_Click(object sender, EventArgs e)
+        private async void btnFollow_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("탐색창에서 게시물을 돌며 팔로우합니다.", "Follow", MessageBoxButtons.OKCancel);
             if (result == DialogResult.OK)
             {
-                uiManager.Explore_Follow(driver, txtCount);
+                // uiManager.Explore_Follow(driver, txtCount);
+                await Task.Run(() => uiManager.Explore_Follow(driver, txtCount));
             }
         }
 
@@ -200,12 +198,6 @@ namespace With_Instagram
         }
 
 
-
-
-
-
-
-        
 
         private void btnExit_Click(object sender, EventArgs e)
         {

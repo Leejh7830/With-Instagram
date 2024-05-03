@@ -221,7 +221,7 @@ namespace With_Instagram
             // 
             // txtCount
             // 
-            this.txtCount.Location = new System.Drawing.Point(204, 47);
+            this.txtCount.Location = new System.Drawing.Point(116, 46);
             this.txtCount.Name = "txtCount";
             this.txtCount.Size = new System.Drawing.Size(81, 25);
             this.txtCount.TabIndex = 15;
