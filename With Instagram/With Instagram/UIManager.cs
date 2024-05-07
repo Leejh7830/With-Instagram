@@ -23,8 +23,33 @@ namespace With_Instagram
         {
             users = new List<User>();
         }
+        public static class XPathRepository
+        {
+            public static readonly string[] FollowXPaths = new string[]
+            {
+            "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[1]/div/header/div[2]/div[1]/div[2]/button/div/div",
+            "/html/body/div[7]/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[1]/div/header/div[2]/div[1]/div[2]/button/div/div",
+            "/html/body/div[8]/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[1]/div/header/div[2]/div[1]/div[2]/button/div/div"
+            };
 
+            public static readonly string[] NextXPaths = new string[]
+            {
+            "/html/body/div[8]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div/button",
+            "/html/body/div[7]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div/button",
+            "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div[2]/button",
+            "/html/body/div[7]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div[2]/button",
+            "/html/body/div[8]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div[2]/button"
+            };
 
+            public static readonly string[] CloseXPaths = new string[]
+            {
+            "/html/body/div[7]/div[1]/div/div[2]/div",
+            "/html/body/div[6]/div[1]/div/div[2]/div",
+            "/html/body/div[8]/div[1]/div/div[2]/div"
+            };
+        }
+
+        
 
         public void LoadUsers(ComboBox cboxID1)
         {
@@ -321,43 +346,48 @@ namespace With_Instagram
                 divContent.Click(); // 첫번째 게시물 클릭
                 LogMessage("게시물 클릭 성공");
 
-                string followXpath1 = "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[1]/div/header/div[2]/div[1]/div[2]/button/div/div";
-                string followXpath2 = "/html/body/div[7]/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[1]/div/header/div[2]/div[1]/div[2]/button/div/div";
-                string followXpath3 = "/html/body/div[8]/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[1]/div/header/div[2]/div[1]/div[2]/button/div/div";
-                string[] followXpaths = new string[] { followXpath1, followXpath2, followXpath3 };
-
-                string nextXPath1 = "/html/body/div[8]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div/button";
-                string nextXPath2 = "/html/body/div[7]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div/button";
-                string nextXPath3 = "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div[2]/button";
-                string nextXPath4 = "/html/body/div[7]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div[2]/button";
-                string nextXPath5 = "/html/body/div[8]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div[2]/button";
-                string[] nextXPaths = new string[] { nextXPath1, nextXPath2, nextXPath3, nextXPath4, nextXPath5 };
 
                 for (int i = 0; i < count; i++)
                 {
                     IWebElement divFollow = null;
+                    IWebElement divNext = null;
+                    IWebElement divClose = null;
                     bool newFollowed = true;
-                    
 
-                    for (int j = 0; j < followXpaths.Length; j++)
+
+                    // 25회마다 페이지 새로고침
+                    if (i > 0 && i % 25 == 0)
                     {
-                        string followXpath = followXpaths[j];
+                        CheckCancellationRequested(cancellationToken, startTime); // 중단기점
+                        for (int m = 0; m < XPathRepository.CloseXPaths.Length; m++)
+                        {
+                            string closeXpath = XPathRepository.CloseXPaths[m];
+                            divClose = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(closeXpath)));
+                            Thread.Sleep(1000);
+                            driver.Navigate().Refresh();
+                            LogMessage($"{i}번째 페이지 새로고침");
+                        }
+                    }
+
+                    for (int j = 0; j < XPathRepository.FollowXPaths.Length; j++)
+                    {
+                        string followXpath = XPathRepository.FollowXPaths[j];
+
                         try
                         {
+                            CheckCancellationRequested(cancellationToken, startTime); // 중단기점
                             divFollow = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(followXpath)));
-                            if (divFollow.Displayed)
-                            {
-                                CheckCancellationRequested(cancellationToken, startTime); // 중단기점
-                                divFollow.Click();
-                                LogMessage($"Follow 클릭 성공");
-                                newFollowed = false;
-                                newFollowCount++;
-                                break; // 찾았을 때 루프 탈출
-                            }
-                        } catch (WebDriverTimeoutException)
-                        {
-                            // LogMessage($"Follow Xpath 순환");
+                            divFollow.Click();
+                            LogMessage($"Follow 클릭 성공");
+                            newFollowed = false;
+                            newFollowCount++;
+                            break; // 찾았을 때 루프 탈출
                         }
+                        catch(WebDriverTimeoutException)
+                        {
+                            // XPaths 순환
+                        }
+                        
                     }
                     if (newFollowed)
                     {
@@ -366,11 +396,10 @@ namespace With_Instagram
                         alreadyFollowCount++;
                     }
 
-                    IWebElement divNext = null;
-
-                    for (int k = 0; k < nextXPaths.Length; k++)
+                    for (int k = 0; k < XPathRepository.NextXPaths.Length; k++)
                     {
-                        string nextXPath = nextXPaths[k];
+                        string nextXPath = XPathRepository.NextXPaths[k];
+
                         try
                         {
                             CheckCancellationRequested(cancellationToken, startTime); // 중단기점
@@ -381,9 +410,9 @@ namespace With_Instagram
                             WaitRandomTime();
                             break; // 찾았을 때 루프 탈출
                         }
-                        catch (WebDriverTimeoutException)
+                        catch(WebDriverTimeoutException)
                         {
-                            // LogMessage("Next Xpath 순환");
+                            // XPaths 순환
                         }
                     }
 
