@@ -26,6 +26,7 @@ namespace With_Instagram
         private readonly UIManager uiManager;
         SpecificPostForm specificPostForm = new SpecificPostForm(); // https://www.instagram.com/p/C54n1MPPaJN/
         private CancellationTokenSource cancellationTokenSource;
+        private bool isUserLoggedIn = false;
 
         public MainForm()
         {
@@ -162,7 +163,8 @@ namespace With_Instagram
                 if (uiManager.IsUrlChanged(driver, "https://www.instagram.com/accounts/onetap/?next=%2F"))
                 {
                     this.Activate();
-                    uiManager.SwapControlLocations(ViewExplore, ViewLogin); // 로그인성공 시 화면 전환
+                    isUserLoggedIn = true;
+                    uiManager.SwapControlLocations(ViewExplore, ViewLogin, isUserLoggedIn, txtID1.Text); // 로그인성공 시 화면 전환
                 }
             }
             catch (Exception ex)
@@ -201,7 +203,8 @@ namespace With_Instagram
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
-            uiManager.SwapControlLocations(ViewLogin, ViewExplore);
+            isUserLoggedIn = false;
+            uiManager.SwapControlLocations(ViewLogin, ViewExplore, isUserLoggedIn, txtID1.Text);
         }
 
 

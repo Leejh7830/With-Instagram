@@ -160,7 +160,7 @@ namespace With_Instagram
             }
             else
             {
-                // 새로운 사용자를 추가
+                // 새로운 사용자를 추가 
                 User user = new User
                 {
                     ID = newID,
@@ -195,7 +195,7 @@ namespace With_Instagram
         }
 
 
-        public void Explore_Like(IWebDriver driver, TextBox txtCount)
+        public void Explore_Like(IWebDriver _driver, TextBox txtCount)
         {
             try
             {
@@ -216,7 +216,7 @@ namespace With_Instagram
                     return;
                 }
 
-                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+                WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(5));
 
                 // mount_0_0_XX 부분이 변경되는 경우에도 동작하는 XPath 작성
                 string expXPath = "//*[starts-with(@id, 'mount_0_0_')]/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[3]/span/div/a";
@@ -225,7 +225,7 @@ namespace With_Instagram
                 IWebElement divExp = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(expXPath)));
                 divExp.Click();
                 LogMessage("EXP 클릭 성공");
-                driver.Navigate().Refresh(); // 게시물 새로고침
+                _driver.Navigate().Refresh(); // 게시물 새로고침
                 LogMessage("페이지 새로고침 성공");
                 Thread.Sleep(1000);
                 string contentXPath = "//*[starts-with(@id, 'mount_0_0_')]/div/div/div[2]/div/div/div[1]/div[1]/div[2]/section/main/div/div[1]/div/div[1]/div[2]/div/a";
@@ -302,7 +302,7 @@ namespace With_Instagram
 
         }
 
-        public void Explore_Follow(IWebDriver driver, TextBox txtCount, CancellationToken cancellationToken)
+        public void Explore_Follow(IWebDriver _driver, TextBox txtCount, CancellationToken cancellationToken)
         {
             DateTime startTime = DateTime.Now; // 작업 시작 시간
             LogMessage("Follow 작업 시작");
@@ -329,7 +329,7 @@ namespace With_Instagram
 
             try
             {
-                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+                WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(5));
 
                 // mount_0_0_XX 부분이 변경되는 경우에도 동작하는 XPath 작성
                 string expXPath = "//*[starts-with(@id, 'mount_0_0_')]/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[3]/span/div/a";
@@ -337,14 +337,11 @@ namespace With_Instagram
                 IWebElement divExp = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(expXPath)));
                 divExp.Click(); // 탐색창 클릭
                 LogMessage("EXP 클릭 성공");
-                driver.Navigate().Refresh(); // 게시물 새로고침
+                _driver.Navigate().Refresh(); // 게시물 새로고침
                 LogMessage("페이지 새로고침 성공");
                 CheckCancellationRequested(cancellationToken, startTime); // 중단기점
                 Thread.Sleep(1000);
-                string contentXPath = "//*[starts-with(@id, 'mount_0_0_')]/div/div/div[2]/div/div/div[1]/div[1]/div[2]/section/main/div/div[1]/div/div[1]/div[2]/div/a";
-                IWebElement divContent = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(contentXPath)));
-                divContent.Click(); // 첫번째 게시물 클릭
-                LogMessage("게시물 클릭 성공");
+                ClickFirstPost(_driver);
 
 
                 for (int i = 0; i < count; i++)
@@ -355,19 +352,31 @@ namespace With_Instagram
                     bool newFollowed = true;
 
 
-                    // 25회마다 페이지 새로고침
-                    if (i > 0 && i % 25 == 0)
+                    // x회마다 페이지 새로고침
+                    if (i > 0 && i % 10 == 0)
                     {
                         CheckCancellationRequested(cancellationToken, startTime); // 중단기점
                         for (int m = 0; m < XPathRepository.CloseXPaths.Length; m++)
                         {
-                            string closeXpath = XPathRepository.CloseXPaths[m];
-                            divClose = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(closeXpath)));
-                            Thread.Sleep(1000);
-                            driver.Navigate().Refresh();
-                            LogMessage($"{i}번째 페이지 새로고침");
+                            WebDriverWait waitClose = new WebDriverWait(_driver, TimeSpan.FromSeconds(2));
+                            try
+                            {
+                                string closeXpath = XPathRepository.CloseXPaths[m];
+                                divClose = waitClose.Until(ExpectedConditions.ElementToBeClickable(By.XPath(closeXpath)));
+                                divClose.Click();
+                                Thread.Sleep(1000);
+                                _driver.Navigate().Refresh();
+                                LogMessage($"{i}번 진행 후 페이지 새로고침");
+                                break;
+                            }
+                            catch (WebDriverTimeoutException)
+                            {
+                                // XPaths 순환
+                            }
                         }
+                        ClickFirstPost(_driver);
                     }
+                    
 
                     for (int j = 0; j < XPathRepository.FollowXPaths.Length; j++)
                     {
@@ -426,10 +435,10 @@ namespace With_Instagram
                 DateTime endTime = DateTime.Now; // 작업 완료 시간
                 TimeSpan elapsedTime = endTime - startTime;
                 totalCount = newFollowCount + alreadyFollowCount;
-                Console.WriteLine("--------------------------------------------------------------------------------");
+                Console.WriteLine("-------------------------------------------------------------------------------------");
                 LogMessage($"작업이 완료되었습니다. 소요 시간: {FormatElapsedTime(elapsedTime)}");
                 LogMessage($"입력된 요청횟수: {count} / 실제 작업횟수: {totalCount} (신규: {newFollowCount} / 기존: {alreadyFollowCount})");
-                Console.WriteLine("--------------------------------------------------------------------------------");
+                Console.WriteLine("-------------------------------------------------------------------------------------");
                 MessageBox.Show("작업 종료");
             }
             catch (WebDriverTimeoutException ex)
@@ -446,10 +455,10 @@ namespace With_Instagram
             {
                 // 작업 중단 요청
                 totalCount = newFollowCount + alreadyFollowCount;
-                Console.WriteLine("--------------------------------------------------------------------------------");
+                Console.WriteLine("-------------------------------------------------------------------------------------");
                 LogMessage($"(MANAGER) 작업 중단 요청 수신. 소요 시간: {ex.Message}");
                 LogMessage($"입력된 요청횟수: {count} / 실제 작업횟수: {totalCount} (신규: {newFollowCount} / 기존: {alreadyFollowCount})");
-                Console.WriteLine("--------------------------------------------------------------------------------");
+                Console.WriteLine("-------------------------------------------------------------------------------------");
                 return;
             }
         }
@@ -512,25 +521,43 @@ namespace With_Instagram
             Console.WriteLine($"[{DateTime.Now.ToString("yyyy-MM-dd, tt hh:mm:ss")}] {message}");
         }
 
-        public void CheckProfile(IWebDriver driver)
+        private void ClickFirstPost(IWebDriver _driver)
         {
-            IWebElement element = driver.FindElement(By.XPath("//*[@id='mount_0_0_Iv']/div/div/div[2]/div/div/div[1]/div[1]/div[2]/div[2]/section/main/div/header/section/ul/li[1]/span/span"));
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(3));
+            string contentXPath = "//*[starts-with(@id, 'mount_0_0_')]/div/div/div[2]/div/div/div[1]/div[1]/div[2]/section/main/div/div[1]/div/div[1]/div[2]/div/a";
+            IWebElement divContent = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(contentXPath)));
+            divContent.Click();
+            LogMessage("첫 번째 게시물 클릭 성공");
+        }
+
+
+        public void CheckProfile(IWebDriver _driver)
+        {
+            IWebElement element = _driver.FindElement(By.XPath("//*[@id='mount_0_0_Iv']/div/div/div[2]/div/div/div[1]/div[1]/div[2]/div[2]/section/main/div/header/section/ul/li[1]/span/span"));
             string text = element.Text;
             Console.WriteLine(text);
         }
 
         // 두 컨트롤의 위치를 교환하는 함수
-        public void SwapControlLocations(Control control1, Control control2)
+        public void SwapControlLocations(Control control1, Control control2, bool isUserLoggedIn, string txtID1)
         {
             Point tempLocation = control1.Location;
             control1.Location = control2.Location;
             control2.Location = tempLocation;
+
+            if(isUserLoggedIn)
+            {
+                LogMessage($" ID : {txtID1} 로그인되었습니다.");
+            } else
+            {
+                LogMessage($" ID : {txtID1} 로그아웃되었습니다.");
+            }
         }
 
-        public bool IsUrlChanged(IWebDriver driver ,string newUrl)
+        public bool IsUrlChanged(IWebDriver _driver ,string newUrl)
         {
             // 현재 URL과 비교하여 변경되었는지 확인
-            return !driver.Url.Equals(newUrl);
+            return !_driver.Url.Equals(newUrl);
         }
     }
 }
