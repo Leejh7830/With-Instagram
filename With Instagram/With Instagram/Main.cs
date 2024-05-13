@@ -20,6 +20,7 @@ using System.Windows.Forms;
 namespace With_Instagram
 {
     public partial class MainForm : Form
+    //public partial class MainForm : Form
     {
         // private string apiKey = "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";
         private IWebDriver driver;
