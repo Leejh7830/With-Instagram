@@ -40,7 +40,6 @@ You can manage multiple accounts and log in/log out.
 In addition, various functions are provided for user convenience.
 (이 외에도 사용자편의를 위한 다양한 기능이 제공됩니다.)
 
-.
 
 
 
